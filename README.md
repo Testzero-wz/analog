@@ -13,7 +13,7 @@ title: 2018-10-19
 analog> show statistics requests current day
 ```
 
-![](~/18-36-03.jpg)
+![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/18-36-03.jpg)
 
 
 **2\. 日志审查**
@@ -21,28 +21,28 @@ analog> show statistics requests current day
 analog> show log of current month
 ```
 
-![](~/10-15-19.jpg)
+![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/10-15-19.jpg)
 
 **3\. IP、请求等统计**
 ``` bash
 analog> show statistics requests current day top 20
 ```
-![](~/10-17-25.jpg)
+![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/10-17-25.jpg)
 ``` bash
 analog> show statistics url current day top 20
 ```
 
-![](~/10-18-13.jpg)
+![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/10-18-13.jpg)
 
 **4\.恶意请求统计**
 包括恶意IP定位、恶意请求统计，恶意IP地理分布统计，正、异常请求比
 ``` bash
 analog>  show analysis of current month
 ```
-![](~/10-19-52.jpg)
+![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/10-19-52.jpg)
 
 
-![](~/10-21-32.jpg)
+![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/10-21-32.jpg)
 
 # Installation
 1\. 安装依赖
@@ -53,7 +53,7 @@ analog>  show analysis of current month
 若想使用异常检测功能，则必须提供自己的日志训练样本。（统计图表功能则不需要）
 **1\. 在`analog`根目录下的`config.ini`配置好数据库参数(程序使用的是MYSQL，确保存在数据库环境)**
 
-![](~/18-24-56.jpg)
+![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/18-24-56.jpg)
 
 **2\. 准备机器学习训练样本以及用于参数优化的黑白样本。三个样本在目录`analog/sample_set`下，分别是`train.txt`、`test_black_log.txt`和`test_white_log.txt`**
 
@@ -65,7 +65,7 @@ analog>  show analysis of current month
 # About
 使用的预测模型为`Oneclass-SVM`，内核为`rbf`，参数遍历取最优。
 特征提取用的是TF-IDF计算2-grams截取未url解码的请求路径，特征向量空间为100*100，取的是`string.printable`可打印字符
-![](~/10-44-57.jpg)
+![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/10-44-57.jpg)
 
 更多解释及用法详见博客：[Wz's Blog](https://www.wzsite.cn)
 
