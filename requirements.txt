@@ -4,3 +4,4 @@ numpy==1.14.3
 colorama==0.3.9
 python_dateutil==2.7.3
 scikit_learn==0.20.0
+ipip-ipdb-0.2.8
