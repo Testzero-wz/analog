@@ -67,7 +67,7 @@ analog>  show analysis of current month
 特征提取用的是TF-IDF计算2-grams截取未url解码的请求路径，特征向量空间为100*100，取的是`string.printable`可打印字符
 ![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/10-44-57.jpg)
 
-更多解释及用法详见博客：[Wz's Blog](https://www.wzsite.cn)
+更多解释及用法详见博客：[Wz's Blog](https://www.wzsite.cn/2018/10/22/%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84Web%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%AE%9E%E8%B7%B5/)
 
 # TODO
 1. 日志实时更新
