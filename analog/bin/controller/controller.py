@@ -66,6 +66,7 @@ class Controller:
     def __init__(self, path=None):
 
         self.path = path
+        self.debug = False
         self.config_path = os.path.join(self.path, "config.ini")
         self.time = datetime.now()
         self.output = ColorOutput()
@@ -99,7 +100,8 @@ class Controller:
                 self.output.print_info("Bye~")
                 exit(0)
             self.output.print_info(
-                    "Log had been loaded before.Type " + self.output.Fore.BLUE + "reload" + self.output.Style.RESET_ALL + self.output.Fore.LIGHTYELLOW_EX + " to flush")
+                    "Logs had been loaded before.Type " + self.output.Fore.BLUE + "reload" +
+                    self.output.Style.RESET_ALL + self.output.Fore.LIGHTYELLOW_EX + " command to reload logs.")
 
         self.statistic = Statistics(database=self.db, output=self.output, ipdb=self.ip_db, controller=self)
 
@@ -402,6 +404,9 @@ class Controller:
                 self.clear_screen()
             elif c == 'help':
                 self.help()
+            elif c == 'debug':
+                self.debug = True
+                self.output.print_info("Debug mode [On].")
             elif c == 'exit':
                 print_formatted_text(FormattedText([('class:yellow', '[*] Bye~')]), style=self.style)
                 exit(0)
@@ -416,13 +421,22 @@ class Controller:
                                 style=self.style)
                     else:
                         self.output.print_info("No model has been loaded.")
+
+            elif c == 'reload':
+                self.config.set(self.section_name_database, 'initial', '0')
+                self.config.write(open(self.config_path, "w"))
+                self.output.print_info("Please start analog once again.")
+                exit(0)
+
             else:
                 raise CommandFormatError
         except Exception as e:
-            raise CommandFormatError
-            # import traceback
-            # traceback.print_exc()
-            # raise Exception(e)
+            if self.debug:
+                import traceback
+                traceback.print_exc()
+                raise Exception(e)
+            else:
+                raise CommandFormatError
 
 
     @staticmethod
