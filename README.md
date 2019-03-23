@@ -69,7 +69,9 @@ analog>  show analysis of current month
 ![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/10-44-57.jpg)
 
 由于analog是基于正则提取的日志，目前只写了`nginx的标准日志`，往后将继续更新、完善以支持更多的日志格式。
+
 有好的idea也可以请求pull，欢迎在issue中提出问题！
+
 如遇Bug,可以键入bedug，进入debug模式，获取错误信息并在issue中提出，以帮助我改善代码。
 
 更多解释及用法详见博客：[Wz's Blog](https://www.wzsite.cn/2018/10/22/%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84Web%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%AE%9E%E8%B7%B5/)
