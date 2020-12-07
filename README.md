@@ -8,9 +8,7 @@
 
 <p align="center">
   <a href="https://github.com/testzero-wz/analog">
-
     <img src="https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/logo_analog.jpg" alt="Logo" width="80" height="80">
-
   </a>
 
   <p align="center">
