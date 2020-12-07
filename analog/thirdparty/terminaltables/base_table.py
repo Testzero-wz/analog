@@ -214,4 +214,5 @@ class BaseTable(object):
     def table(self):
         """Return a large string of the entire table ready to be printed to the terminal."""
         dimensions = max_dimensions(self.table_data, self.padding_left, self.padding_right)[:3]
-        return flatten(self.gen_table(*dimensions))
+        res = flatten(self.gen_table(*dimensions))
+        return res
