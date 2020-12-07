@@ -14,6 +14,10 @@ class RuntimeException(Exception):
     pass
 
 
+class UpdateLogThreadException(RuntimeException):
+    pass
+
+
 class CommandFormatError(RuntimeException):
     pass
 
@@ -27,4 +31,8 @@ class FileNotFound(FileException):
 
 
 class FileEmptyError(FileException):
+    pass
+
+
+class AddCommandError(CommandFormatError):
     pass
