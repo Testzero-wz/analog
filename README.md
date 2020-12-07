@@ -8,9 +8,7 @@
 
 <p align="center">
   <a href="https://github.com/testzero-wz/analog">
-
     <img src="https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/logo_analog.jpg" alt="Logo" width="80" height="80">
-
   </a>
 
   <p align="center">
@@ -179,9 +177,7 @@ d. 训练样本、测试样本和访问日志读取是使用同一套正则，�
 
 BTW，这可能是最耗时间的活了。 筛选时间长短取决于你的网站大小以及是否能快速地收集较为完整的访问数据集。
 
-当然也有偷懒一点的方法：
-
-可以使用我开源的一个轻量级Web扫描器——wscan ，仅需两步:
+当然也有偷懒一点的方法——可以使用我开源的一个轻量级Web扫描器——wscan ，仅需两步:
 
 ```sh
 $ python3 -m pip install wscan -U
@@ -198,14 +194,13 @@ $ wscan -u "https://your_web_site.com" -m -s -t 20
 analog> train
 ```
 
-该操作会覆盖之前存在于路径 `/analog/cache/ `中的模型缓存文件，若想保留，请提前备份。
+该操作会覆盖之前存在于路径 `/analog/cache/`中的模型缓存文件，若想保留，请提前备份。
 
 训练过程是异步的，我们可以通过输入下列命令获取当前训练进度:
 
 ```sh
 analog> get progress
 ```
-
 当我们得到训练结束的通知时，说明训练完成，模型缓存文件已更新。
 
 
