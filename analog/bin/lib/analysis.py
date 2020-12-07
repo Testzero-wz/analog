@@ -1,9 +1,6 @@
-from analog.bin.lib.sql import db
-from analog.bin.io.color_output import ColorOutput
-from analog.thirdparty.terminaltables.terminal_io import terminal_size
 from analog.thirdparty.terminaltables.other_tables import AnalogTable
 from colorama import Fore, Style
-from analog.bin.machine_learning.TfidfVector import TfidfVector
+from analog.bin.lib.utils import fetch
 from collections import Counter
 
 
@@ -21,43 +18,42 @@ class Analyser:
         self.model = model
         self.controller = controller
 
-
     def show_analysis(self, when: str):
         cursor = self.db.execute(
-                """
-                SELECT 
-                COUNT(*)
-                FROM `weblog` WHERE""" +
-                self.controller.get_time_condition(when, time_change=False, current_flag=True)
+            """
+            SELECT 
+            COUNT(*)
+            FROM `%s` WHERE""" % self.controller.table_name +
+            self.controller.get_time_condition(when, time_change=False, current_flag=True)
         )
         count = cursor.fetchall()[0][0]
 
         if count > 50000:
             self.controller.output.print_info(
-                    "Number of log items is too large({}). It will take a while.".format(count))
+                "Number of log items is too large({}). It will take a while.".format(count))
         elif count == 0:
             self.controller.output.print_info("No log.")
             return
         cursor = self.db.execute(
-                """
-                SELECT 
-                remote_addr,
-                request
-                FROM `weblog` WHERE""" +
-                self.controller.get_time_condition(when, time_change=False, current_flag=True)
+            """
+            SELECT 
+            remote_addr,
+            request
+            FROM `%s` WHERE""" % self.controller.table_name +
+            self.controller.get_time_condition(when, time_change=False, current_flag=True)
         )
         res = list(cursor.fetchall())
-        tf_idf_vector = self.tfidfvector.transform(list(self.__fetch(res, 1, TfidfVector.get_url)))
+        tf_idf_vector = self.tfidfvector.transform(list(fetch(res, 1)))
 
         y = self.model.predict(tf_idf_vector)
         # 去除正常请求，只留异常请求
-        for i in range(0, len(res))[::-1]:
+        for i in range(len(res) - 1, 0, -1):
             if y[i] == 1:
                 del res[i]
 
         # ========================================== 恶意IP统计 ==========================================
         self.controller.output.print_split_line(message="Abnormal Access IP ")
-        ip_counter = Counter(self.__fetch(res, 0))
+        ip_counter = Counter(fetch(res, 0))
         data = []
         data.append(("恶意IP", "定位", "恶意请求占比"))
         for item in ip_counter.most_common(10):
@@ -72,7 +68,7 @@ class Analyser:
 
         # ========================================== 恶意请求统计 ==========================================
         self.controller.output.print_split_line(message="Abnormal Requests ")
-        request_counter = Counter(self.__fetch(res, 1))
+        request_counter = Counter(fetch(res, 1))
         data.clear()
         data.append(("序号", "请求次数", "恶意请求"))
         ordinary = 1
@@ -85,7 +81,7 @@ class Analyser:
         # ========================================== 恶意IP定位统计 ==========================================
         self.controller.output.print_split_line(message="Geolocation Of Abnormal Requests ")
         geo_list = []
-        for ip in self.__fetch(res, 0):
+        for ip in fetch(res, 0):
             geolocation_list = self.ip_db.find(ip)
             if geolocation_list[0] != '中国':
                 geolocation_str = geolocation_list[0]
@@ -111,13 +107,3 @@ class Analyser:
                        Fore.LIGHTYELLOW_EX + "{:4.2f}%".format(100 - evil_percent) + Fore.RESET))
         request_percent_table = AnalogTable(data_1)
         print(Style.RESET_ALL + request_percent_table.table)
-
-
-    @staticmethod
-    def __fetch(res: list, index: int, proc=None):
-
-        for item in res:
-            if proc:
-                yield proc(item[index])
-            else:
-                yield item[index]

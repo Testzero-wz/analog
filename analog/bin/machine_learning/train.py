@@ -2,143 +2,78 @@ import os, sys
 from sklearn.svm import OneClassSVM
 from analog.bin.machine_learning.TfidfVector import TfidfVector
 from datetime import datetime
-import re
 import numpy as np
-from urllib.parse import unquote
 from sklearn.model_selection import ParameterGrid
 import pickle
+from analog.bin.lib.utils import read_by_group
+from analog.bin.logger.logger import Logger
 
 
 class Train:
-    def __init__(self, path=None):
+    def __init__(self, path=None, config=None, test_flag=False):
         self.root_path = path
         self.set_path = os.path.join(self.root_path, "analog/sample_set/")
-
         self.train_log_path = os.path.join(self.root_path, "analog/sample_set/train.txt")
         self.test_black_path = os.path.join(self.root_path, "analog/sample_set/test_black_log.txt")
         self.test_white_path = os.path.join(self.root_path, "analog/sample_set/test_white_log.txt")
         self.result_path = os.path.join(self.root_path, "analog/sample_set/result.txt")
         self.complete = False
-        # self.test_log_path = os.path.join(self.root_path, "analog/sample_set/test.txt")
-
+        self.config = config
+        self.test = test_flag
+        self.section_name_log = "Log"
+        self.log_path = os.path.join(self.root_path, "analog/logs/train_log.log")
 
     def is_complete(self):
         return self.complete
 
-
     def set_complete(self, v: bool):
         self.complete = v
 
-
-    def read_txt(self, path: str, l: list, encoding='utf-8'):
-        log_Pattern = r'^(?P<remote_addr>.*?) - (?P<remote_user>.*) \[(?P<time_local>.*?) \+[0-9]+?\] "(?P<request>.*?)" ' \
-                      '(?P<status>.*?) (?P<body_bytes_sent>.*?) "(?P<http_referer>.*?)" "(?P<http_user_agent>.*?)"$'
-        log_regx = re.compile(log_Pattern)
-        flag = False
-        # 读取样本集(日志格式)
-        with open(path, "r", encoding=encoding) as file:
-            line = file.readline().strip("\r\n")
-            while line:
-                log_tuple = log_regx.search(line)
-                line = file.readline().strip("\r\n")
-                if log_tuple is None and len(l) == 0:
-                    flag = True
-                    break
-                if log_tuple is not None:
-                    l.append(TfidfVector.get_url(log_tuple.group('request')))
-        if flag:
-            # 读取样本集(纯路径格式)
-            with open(path, "r", encoding=encoding) as file:
-                line = file.readline().strip("\r\n")
-                while line:
-                    l.append(line)
-                    line = file.readline().strip("\r\n")
-
-
-    @staticmethod
-    def get_url(request: str, unquote_url=False):
-        """
-        处理日志里面的request（如:GET /admin/login.php HTTP/1.0 )
-        只保留路径部分
-        """
-        if request.startswith(("GET", "POST")):
-            if unquote_url:
-                res = unquote(request.strip("GETPOSTHTTP/1.10").strip())
-            else:
-                res = request.strip("GETPOSTHTTP/1.10").strip()
-        else:
-            if unquote_url:
-                res = unquote(request.strip())
-            else:
-                res = request.strip()
-        return res.ljust(2)
-
-
     def get_model(self, queue=None):
-        log_Pattern = r'^(?P<remote_addr>.*?) - (?P<remote_user>.*) \[(?P<time_local>.*?) \+[0-9]+?\] "(?P<request>.*?)" ' \
-                      '(?P<status>.*?) (?P<body_bytes_sent>.*?) "(?P<http_referer>.*?)" "(?P<http_user_agent>.*?)"$'
-        log_regx = re.compile(log_Pattern)
-        # 输出重定向
-        __console__ = sys.stdout
-        sys.stdout = open(os.path.join(self.root_path, "analog/log/train_log.txt"), 'w+')
-        start = datetime.now()
-        print("Start at {}".format(
-                start.strftime("%Y/%m/%d %H:%M:%S")))
 
+        start = datetime.now()
+        # Since logger is not pickleable until python 3.7,
+        # we can init logger within this function.
+        train_logger = Logger(logger_name="train_logger",
+                              log_path=self.log_path)
+
+        train_logger.register_log_function("calc", "CALCU")
+        train_logger.register_log_function("split", "SPLIT")
+        train_logger.register_log_function("start", "START")
+        train_logger.register_log_function("end", "-END-")
+        train_logger.register_log_function("result", "RESULT")
+        train_logger.start("Start Training.")
         train_example = []
         white_example = []
         black_example = []
 
+        pattern = self.config.get(self.section_name_log, 'log_content_pattern')
         # 读取训练集
-        self.read_txt(self.train_log_path, train_example)
-        # with open(self.train_log_path, "r") as file:
-        #     line = file.readline().strip("\r\n")
-        #     while line:
-        #         log_tuple = log_regx.search(line)
-        #         line = file.readline().strip("\r\n")
-        #         if log_tuple is not None:
-        #             train_example.append(TfidfVector.get_url(log_tuple.group('request')))
+        read_by_group(self.train_log_path, train_example, pattern=pattern)
 
         # 读取黑样本集
-        self.read_txt(self.test_black_path, black_example)
-        # with open(self.test_black_path, "r") as file:
-        #     line = file.readline().strip("\r\n")
-        #     while line:
-        #         log_tuple = log_regx.search(line)
-        #         line = file.readline().strip("\r\n")
-        #         if log_tuple is not None:
-        #             black_example.append(TfidfVector.get_url(log_tuple.group('request')))
+        read_by_group(self.test_black_path, black_example, pattern=pattern)
 
-        # 读取白样本集(日志格式)
-        self.read_txt(self.test_white_path, white_example)
-        # with open(test_white_path, "r") as file:
-        #     line = file.readline().strip("\r\n")
-        #     while line:
-        #         log_tuple = log_regx.search(line)
-        #         line = file.readline().strip("\r\n")
-        #         if log_tuple is not None:
-        #             white_example.append(TfidfVector.get_url(log_tuple.group('request')))
+        # 读取白样本集
+        read_by_group(self.test_white_path, white_example, pattern=pattern)
 
-        # 读取白样本集(纯路径格式)
-        # with open(self.test_white_path, "r") as file:
-        #     line = file.readline().strip("\r\n")
-        #     while line:
-        #         white_example.append(line)
-        #         line = file.readline().strip("\r\n")
-
-        tf_idf_vector = TfidfVector()
         # 特征向量化训练样本
+        tf_idf_vector = TfidfVector(self.root_path, self.config)
         train_vector = tf_idf_vector.fit_vector
 
-        # 特征向量化黑白样本
+        # 特征向量化黑/白样本
         test_normal_vector = tf_idf_vector.transform(white_example)
         test_abnormal_vector = tf_idf_vector.transform(black_example)
-
-        y = [1] * (len(train_example))
-
+        # test_param_x = tf_idf_vector.transform(white_example + black_example)
+        # test_param_y = [1] * len(white_example) + [-1] * len(black_example)
         # ============================================= 遍历调优参数nu与gamma ==========================================
-        grid = {'gamma': np.logspace(-8, 1, 10),
-                'nu': np.linspace(0.01, 0.20, 20)}
+        grid = {'gamma': np.logspace(-9, 1, 10),
+                'nu': np.linspace(0.00001, 0.2, 100)}
+        # ======================================= GridSearchCV遍历调优参数nu与gamma ======================================
+        # scores = "f1"
+        # clf = GridSearchCV(OneClassSVM(), grid, scoring=scores)
+        # clf.fit(test_param_x, test_param_y)
+        # ==============================================================================================================
 
         # 核函数(rbf,linear,poly)
         kernel = 'rbf'
@@ -166,21 +101,14 @@ class Train:
         process_count = 0
         for z in ParameterGrid(grid):
             process_count += 1
-
             queue.put_nowait("{:0.4f}".format(process_count / total_loop))
             if re_gamma == z.get('gamma'):
-                if zero_count >= 4:
+                if zero_count >= 6:
                     continue
             else:
                 zero_count = 0
-                # re_gamma = z.get('gamma')
-                # zero_count = 0
-            #     print("This parameter gamma({}) maybe too small. So pass it for saving time.".format(z.get('gamma')))
-            #
-            # if :
-            #     continue
-            svdd.set_params(**z)
-            svdd.fit(train_vector, y)
+            svdd = OneClassSVM(**z)
+            svdd.fit(train_vector)
             k = svdd.get_params()
             # 正常样本测试
             f = svdd.predict(test_normal_vector)
@@ -216,26 +144,29 @@ class Train:
                 nu_r_Pr = k.get('nu')
                 gamma_r_Pr = k.get('gamma')
 
-            print("========================== [{}] ===========================".format(
-                    datetime.now().strftime("%Y/%m/%d %H:%M:%S")))
-            print("nu: ", k.get('nu'), 'gamma', k.get('gamma'), )
-            print("Precision: {}%".format(Precision * 100))
-            print("Recall: {}%".format(Recall * 100))
-            print("F1 score: {}".format(F1_score))
-        print("========================== [{}] ===========================".format(
-                datetime.now().strftime("%Y/%m/%d %H:%M:%S")))
+            train_logger.split("=" * 60)
+            train_logger.calc("nu: %.08f , gamma: %.04f" % (k.get('nu'), k.get('gamma')))
+            train_logger.calc("precision: {}%".format(Precision * 100))
+            train_logger.calc("recall: {}%".format(Recall * 100))
+            train_logger.calc("f1 score: {}".format(F1_score))
 
-        print("MAX Precision:  {:^20.6f}When Current nu: {:^20.6f} and gamma: {:0.8f}".format(max_Pr, nu_r_Pr,
-                                                                                              gamma_r_Pr))
-        print("MAX Recall:     {:^20.6f}When Current nu: {:^20.6f} and gamma: {:0.8f}".format(max_Re, nu_r_Re,
-                                                                                              gamma_r_Re))
-        print("MAX F1:         {:^20.6f}When Current nu: {:^20.6f} and gamma: {:0.8f}".format(max_F1, nu_r_F1,
-                                                                                              gamma_r_F1))
+        train_logger.split("=" * 60)
+        train_logger.result(
+            "MAX Precision:{:^20.6f}When Current nu: {:^20.6f} and gamma: {:0.8f}".format(max_Pr, nu_r_Pr,
+                                                                                          gamma_r_Pr))
+        train_logger.result(
+            "MAX Recall:   {:^20.6f}When Current nu: {:^20.6f} and gamma: {:0.8f}".format(max_Re, nu_r_Re,
+                                                                                          gamma_r_Re))
+        train_logger.result(
+            "MAX F1:       {:^20.6f}When Current nu: {:^20.6f} and gamma: {:0.8f}".format(max_F1, nu_r_F1,
+                                                                                          gamma_r_F1))
         total_second = datetime.now() - start
-        print("Cost {}s.".format(total_second.total_seconds()))
+        train_logger.end("Cost {}s.".format(total_second.total_seconds()))
         queue.put_nowait("1")
         with open(os.path.join(self.root_path, "analog/cache/model.pkl"), 'wb') as file:
+            # svdd = OneClassSVM(**clf.best_params_)
             svdd.set_params(kernel=kernel, nu=nu_r_F1, gamma=gamma_r_F1)
-            svdd.fit(train_vector, y)
+            svdd.fit(train_vector)
             pickle.dump(svdd, file)
         self.complete = True
+        # sys.stdout = __console__

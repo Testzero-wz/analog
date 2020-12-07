@@ -6,13 +6,12 @@ from analog.bin.exception.Exceptions import *
 def requests_num_decorator(func):
     def wrapper(self, *args, **kwargs):
         func(self, *args, **kwargs)
-        self.output.print_info("Now time is {}".format(self.controller.time.strftime("%Y/%m/%d:%H:00")))
+        self.output.print_info("Now time is {}".format(self.controller.time.strftime("%Y/%m/%d:%H:00:00")))
         self.output.print_info(
-                "You can type command: " + self.output.Fore.LIGHTBLUE_EX + "set <hour|day|mouth|year> <num>" + \
-                self.output.Fore.LIGHTYELLOW_EX + "  or  " + self.output.Fore.LIGHTBLUE_EX + "set time 2018/8/8:10 " + \
-                self.output.Fore.LIGHTYELLOW_EX + "to change current time."
+            "You can type command: " + self.output.Fore.LIGHTBLUE_EX + "set <hour|day|mouth|year> <num>" + \
+            self.output.Fore.LIGHTYELLOW_EX + "  or  " + self.output.Fore.LIGHTBLUE_EX + "set date 2018/8/8 " + \
+            self.output.Fore.LIGHTYELLOW_EX + "to change current time."
         )
-
 
     return wrapper
 
@@ -30,7 +29,6 @@ class Statistics:
         self.ip_db = ipdb
         self.output = output
         self.controller = controller
-
 
     def top_n(self, query: str, when: str, current_flag=False, N=10):
         date_condition = self.controller.get_time_condition(when, current_flag=current_flag)
@@ -59,7 +57,7 @@ class Statistics:
             raise CommandFormatError
 
         cursor = self.db.execute(
-                "SELECT " + column_name + ",COUNT(*) FROM weblog WHERE" + date_condition + """
+            "SELECT " + column_name + ",COUNT(*) FROM %s WHERE " % self.controller.table_name + date_condition + """
                                                 GROUP BY 1
                                                 ORDER BY 2 DESC
                                                 LIMIT 0,""" + str(N)
@@ -80,29 +78,27 @@ class Statistics:
                                    ("-".join(self.ip_db.find(i[0])) if query == 'ip' else ""), symbol="+")
             t += 1
 
-
     @requests_num_decorator
     def requests_num(self, when: str, current_flag=False, time_change=False):
         # ================================================ 请求数统计 ==============================================
-        t = self.controller.time
         when = when.lower()
         temp_list = [0] * 61
         sub_title = self.get_title(when)
         date_condition = self.controller.get_time_condition(when, current_flag=current_flag, time_change=time_change)
         if when == 'hour':
-            column_name = "MINUTE(time)"
+            column_name = "MINUTE(time_local)"
         elif when == 'day':
-            column_name = "HOUR(time)"
+            column_name = "HOUR(time_local)"
         elif when == 'week':
-            column_name = "DAYOFMONTH(time)"
+            column_name = "DAYOFMONTH(time_local)"
         elif when == 'month':
-            column_name = "DAYOFMONTH(time)"
+            column_name = "DAYOFMONTH(time_local)"
         elif when == 'year':
-            column_name = "MONTH(time)"
+            column_name = "MONTH(time_local)"
         else:
             raise CommandFormatError
 
-        sql = "SELECT " + column_name + ",COUNT(*),time FROM weblog WHERE " + date_condition + "GROUP BY 1 ORDER BY 3"
+        sql = "SELECT " + column_name + ",COUNT(*),time_local FROM %s WHERE " % self.controller.table_name + date_condition + "GROUP BY 1 ORDER BY 3"
         cursor = self.db.execute(sql)
         res = cursor.fetchall()
         if res == ():
@@ -115,14 +111,8 @@ class Statistics:
             temp_list[i[0]] = i[1]
             self.controller.get_date_list(when, date_list, i[2], d_format_list=date_format_list)
 
-        chart = Histogram(
-                list(map(lambda x, y: (x, y), date_format_list, [temp_list[i] for i in date_list])))
+        chart = Histogram(list(map(lambda x, y: (x, y), date_format_list, [temp_list[i] for i in date_list])))
         chart.draw()
-
-
-    def top(self, value, when: str):
-        pass
-
 
     def get_title(self, when: str) -> str:
         if when == 'day':
@@ -138,7 +128,6 @@ class Statistics:
         else:
             title = "Total"
         return title
-
 
     def ip_geolocation(self, ip: str) -> list:
         return self.ip_db.find(ip)
