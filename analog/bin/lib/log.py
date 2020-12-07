@@ -4,23 +4,26 @@ from textwrap import wrap
 from colorama import Fore, Style
 from analog.thirdparty.terminaltables.terminal_io import terminal_size
 from analog.thirdparty.terminaltables.other_tables import AnalogTable
-from analog.bin.machine_learning.TfidfVector import *
+from analog.bin.lib.utils import fetch
+from configparser import NoOptionError, NoSectionError
 
 
 class Logger:
     KEY_WORD_IP = 1
     KEY_WORD_DATE = 2
 
-
     def __init__(self, database: db,
                  output: ColorOutput,
+                 section_name_log="Log",
                  ipdb=None,
                  controller=None,
                  tfidfvector=None,
+                 config=None,
                  model=None
                  ):
         self.db = database
         self.ip_db = ipdb
+        self.config = config
         self.controller = controller
         self.tfidfvector = tfidfvector
         self.model = model
@@ -30,28 +33,25 @@ class Logger:
         self.query_cache = []
         self.show_num = 6
         self.total_len = 0
-        self.N = 5000
+
+        self.section_name_log = section_name_log
+        self.logs_per_query = int(self.config.get(self.section_name_log, 'logs_per_query'))
+        self.N = self.logs_per_query
         self.freeze = False
         self.MODE = self.KEY_WORD_IP
 
         self.when_buff = None
 
-
     def add_offset(self, N):
-        self.offset += N
-        self.offset = self.offset if self.offset >= 0 else 0
-        if self.freeze:
-            self.offset = self.total_len if self.offset > self.total_len else self.offset
-
+        self.set_offset(self.offset + N)
 
     def set_ip(self, ip: str):
         self.ip = ip
         self.output.print_info(ip)
 
-
     def set_offset(self, offset: int):
         self.offset = self.total_len - self.show_num if offset > self.total_len else offset
-
+        self.offset = self.offset if self.offset > 0 else 0
 
     def set_mode(self, mode: str):
         mode = mode.lower()
@@ -60,52 +60,52 @@ class Logger:
         elif mode == 'ip':
             self.MODE = self.KEY_WORD_IP
 
-
     def show_log(self, increase=False, decrease=False, when=None, current_flag=True):
         assert ~(increase and decrease)
         if increase:
             self.add_offset(self.show_num)
         else:
             self.add_offset(-self.show_num)
-        N = 5000
         offset = self.offset
         if len(self.query_cache) == 0 or offset >= self.N:
             if offset >= self.N:
-                self.N += 5000
+                self.N += self.logs_per_query
+            cursor = None
             if self.MODE == self.KEY_WORD_IP:
                 cursor = self.db.execute(
-                        """
-                        SELECT 
-                        time,
-                        status,
-                        request,
-                        body_bytes_sent,
-                        http_referer,
-                        http_user_agent,
-                        remote_addr
-                        FROM `weblog` WHERE
-                        remote_addr = %s """ + "ORDER BY time DESC " +
-                        "LIMIT " + str(self.offset) + "," + str(5000),
-                        self.ip
+                    """
+                    SELECT 
+                    time_local,
+                    status,
+                    request,
+                    body_bytes_sent,
+                    http_referer,
+                    http_user_agent,
+                    remote_addr
+                    FROM `%s` WHERE
+                    remote_addr = ? """ % self.controller.table_name + "ORDER BY time_local DESC " +
+                    "LIMIT " + str(self.offset) + "," + str(self.logs_per_query),
+                    self.ip
                 )
             elif self.MODE == self.KEY_WORD_DATE:
                 if when:
                     self.when_buff = when
                 cursor = self.db.execute(
-                        """
-                        SELECT 
-                        time,
-                        status,
-                        request,
-                        body_bytes_sent,
-                        http_referer,
-                        http_user_agent,
-                        remote_addr
-                        FROM `weblog` WHERE
-                        """ + self.controller.get_time_condition(self.when_buff, time_change=False,
-                                                                 current_flag=current_flag) +
-                        "ORDER BY time " +
-                        "LIMIT " + str(self.offset) + "," + str(5000)
+                    """
+                    SELECT 
+                    time_local,
+                    status,
+                    request,
+                    body_bytes_sent,
+                    http_referer,
+                    http_user_agent,
+                    remote_addr
+                    FROM `%s` WHERE
+                    """ % self.controller.table_name + self.controller.get_time_condition(self.when_buff,
+                                                                                          time_change=False,
+                                                                                          current_flag=current_flag) +
+                    "ORDER BY time_local " +
+                    "LIMIT " + str(self.offset) + "," + str(self.logs_per_query)
                 )
 
             res = list(cursor.fetchall())
@@ -113,19 +113,18 @@ class Logger:
                 self.output.print_info("No more logs.")
                 return False
             if self.model:
-                predict_vector = self.tfidfvector.transform([TfidfVector.get_url(log_item[2]) for log_item in res])
+                predict_vector = self.tfidfvector.transform(fetch(res, 2))
                 predict_res = self.model.predict(predict_vector)
                 for i in range(len(res)):
                     res[i] += (predict_res[i],)
             self.query_cache.extend(res)
             self.total_len += len(res)
-            if len(res) == 0 or len(res) != 5000:
+            if len(res) == 0 or len(res) != self.logs_per_query:
                 self.freeze = True
 
         data = []
 
         res = self.query_cache[self.offset:self.offset + self.show_num]
-
 
         t = self.offset + 1
         for log_item in res:
@@ -134,7 +133,7 @@ class Logger:
                        + '\n' + Fore.YELLOW + "{:^6d}".format(t) + Fore.RESET + "│Length: " + str(log_item[3]) \
                        + "\n──────┴─────────────\n" + str(log_item[0])
             list_temp.append(str_temp)
-            if self.MODE == self.KEY_WORD_DATE:
+            if self.MODE == self.KEY_WORD_DATE or self.MODE == self.KEY_WORD_IP:
                 geolocation_list = self.ip_db.find(log_item[6])
                 if geolocation_list[0] != '中国':
                     geolocation_str = geolocation_list[0]
@@ -167,7 +166,6 @@ class Logger:
         print(Style.RESET_ALL + table.table)
         return True
 
-
     @staticmethod
     def get_status_color_font(status: int):
         color = Fore.LIGHTMAGENTA_EX
@@ -182,8 +180,9 @@ class Logger:
 
         return color + str(status) + Fore.RESET
 
-
     def clear(self):
+        self.total_len = 0
         self.offset = 0
-        self.query_cache = []
+        self.freeze = False
+        self.query_cache.clear()
         self.ip = None
