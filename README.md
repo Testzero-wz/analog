@@ -50,7 +50,7 @@ analog 是一款命令行下的Web日志审计工具，旨在帮助使用者能�
       <a href="#Installation">Installation</a>
     </li>
     <li><a href="#Configuration">Configuration</a></li>
-    <li><a href="Prepare For Abnormal Detection">Prepare For Abnormal Detection</a></li>
+    <li><a href="#Prepare For Abnormal Detection">Prepare For Abnormal Detection</a></li>
     <li><a href="#About">About</a></li>
     <li><a href="#TODO">TODO</a></li>
     <li><a href="#Reference">Reference</a></li>
