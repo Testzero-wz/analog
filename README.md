@@ -31,6 +31,7 @@ analog 是一款命令行下的Web日志审计工具，旨在帮助使用者能�
 完整项目文档：[Analog Document](https://analog.testzero-wz.com)
 
 特征提取、模型选取、参数优化等相关问题讨论: [《基于机器学习的Web日志异常检测实践》](https://www.testzero-wz.com/2018/10/22/%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84Web%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%AE%9E%E8%B7%B5/)
+
 ![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/analog_prompt.gif)
 
 <details open="open">
