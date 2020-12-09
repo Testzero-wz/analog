@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://github.com/testzero-wz/analog">
-    <img src="https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/logo_analog.jpg" alt="Logo" width="80" height="80">
+    <img src="https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/logo_analog.jpg" alt="Logo" width="160" height="80">
   </a>
 
   <p align="center">
@@ -28,9 +28,9 @@
 
 analog 是一款命令行下的Web日志审计工具，旨在帮助使用者能够在终端上快速得进行Web日志审计和排查，包含了日志审计、统计的终端图形化和机器学习识别恶意请求的功能。
 
-完整项目文档：[Document](https://analog.testzero-wz.com)
+完整项目文档：[Analog Document](https://analog.testzero-wz.com)
 
-模型相关问题的讨论，如训练选取的模型、参数优化等具体细节请查看博客原文 [《基于机器学习的Web日志异常检测实践》](https://www.testzero-wz.com/2018/10/22/%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84Web%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%AE%9E%E8%B7%B5/)
+特征提取、模型选取、参数优化等相关问题讨论: [《基于机器学习的Web日志异常检测实践》](https://www.testzero-wz.com/2018/10/22/%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84Web%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%AE%9E%E8%B7%B5/)
 ![](https://raw.githubusercontent.com/Testzero-wz/analog/master/_img/analog_prompt.gif)
 
 <details open="open">
@@ -177,7 +177,7 @@ d. 训练样本、测试样本和访问日志读取是使用同一套正则，�
 
 BTW，这可能是最耗时间的活了。 筛选时间长短取决于你的网站大小以及是否能快速地收集较为完整的访问数据集。
 
-当然也有偷懒一点的方法——可以使用我开源的一个轻量级Web扫描器——wscan ，仅需两步:
+当然也有偷懒一点的方法，使用我开源的一个轻量级Web扫描器——wscan ，仅需两步:
 
 ```sh
 $ python3 -m pip install wscan -U
@@ -216,7 +216,7 @@ analog> get progress
 
 如遇Bug,可以键入bedug，进入debug模式，获取错误信息并在issue中提出，以帮助我改善代码。
 
-更多解释及用法详见文档：[analog Document](https://analog.testzero-wz.com)
+更多解释及用法详见文档：[Analog Document](https://analog.testzero-wz.com)
 
 
 # TODO
