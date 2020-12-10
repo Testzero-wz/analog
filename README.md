@@ -215,7 +215,7 @@ analog> get progress
 
 有好的idea也可以请求pull，欢迎在issue中提出问题！
 
-如遇Bug,可以键入bedug，进入debug模式，获取错误信息并在issue中提出，以帮助我改善代码。
+如遇Bug,可以键入dedug，进入debug模式，获取错误信息并在issue中提出，以帮助我改善代码。
 
 更多解释及用法详见文档：[Analog Document](https://analog.testzero-wz.com)
 
