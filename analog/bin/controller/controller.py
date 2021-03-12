@@ -95,7 +95,7 @@ class Controller:
         self.db = db(self.config, root_path=self.path)
         self.logger = None
         self.analyser = None
-        self.section_name_database = "database"
+        self.section_name_database = "Database"
         self.table_name = self.config.get(self.section_name_database, "table_name")
         self.ip_db = ipDatabase(os.path.join(self.path, "analog/ipdb/ip.ipdb"))
         self.pool = None
