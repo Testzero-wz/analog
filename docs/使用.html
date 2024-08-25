@@ -1,0 +1,619 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="cn" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="cn" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4. 使用指南 &mdash; Analog 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="5. Q&amp;A" href="Q&amp;A.html" />
+    <link rel="prev" title="3. 配置" href="配置.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Analog
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">总目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="简介.html">1. 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="安装.html">2. 安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="配置.html">3. 配置</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. 使用指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">4.1. 语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">4.2. 各功能示例详解</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4.2.1. 统计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">4.2.1.1. 访问量柱状图</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">4.2.1.2. 访问统计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">4.2.2. 日志审查</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">4.2.3. 恶意请求分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">4.2.4. 参数设置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id10">4.2.4.1. 日期设置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">4.2.4.2. 日志偏移设置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ip">4.2.5. 定位IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">4.2.6. 重新加载日志文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">4.2.7. 检测模型相关</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id15">4.2.7.1. 训练模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">4.2.7.2. 获取训练进度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">4.2.7.3. 获取当前模型参数</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">4.2.8. 清屏</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id19">4.3. 实时更新日志文件</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Q&amp;A.html">5. Q&amp;A</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Analog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">4. </span>使用指南</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/使用.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><span class="section-number">4. </span>使用指南<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><strong>analog</strong> 是一款命令行下的Web日志审计工具，旨在帮助使用者能够在终端上快速得进行Web日志审计和排查，包含了日志审计、统计的终端图形化和机器学习识别恶意请求的功能</p>
+<p>经过安装以及配置文件，现在已经可以使用 <strong>analog</strong> 进行日志审计了，但要使用机器学习识别恶意请求的功能则还需要进行一定量的训练数据筛选和黑白测试样本的选择 <a class="reference internal" href="配置.html#id6"><span class="std std-ref">详细步骤点击这里</span></a></p>
+<div class="section" id="id2">
+<h2><span class="section-number">4.1. </span>语法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">在设计analog之初，考虑到要展示统计、分析、审计，训练等功能、还要兼顾变量设置、其他功能的调用，于是设计了如下的analog的基本语法。</div>
+<div class="line">可能使用者第一次看到会觉得比较复杂难记，但是analog实现了较为完整的命令行提示，可以通过简单地输入&lt;tab&gt;和&lt;space&gt;键获得当前可用选项，进而调用完整的功能，具体效果请看动图。其实现基于开源的命令行工具 <a class="reference external" href="https://github.com/prompt-toolkit/python-prompt-toolkit">prompt-toolkit</a></div>
+</div>
+<img alt="_images/analog_prompt.gif" src="_images/analog_prompt.gif" />
+<p>让我们来看一下语法的整体架构和具体功能：</p>
+<dl>
+<dt>show</dt><dd><p>展示各类功能</p>
+<dl>
+<dt>statistics &lt;requests | ip | ua | url&gt;</dt><dd><p>统计功能。当统计量为requests时，将统计时间范围内的访问请求数量，给出统计柱状图。其他则为统计表。</p>
+<blockquote>
+<div><dl>
+<dt>current &lt;hour | day | week | month | year&gt;</dt><dd><p>给出统计的日志时间范围：当前小时、天、周、月、年</p>
+<dl class="simple">
+<dt>top &lt;N&gt;</dt><dd><p>给出统计结果的前多少个（默认前10，倒序）</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>例子</dt><dd><p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">statistics</span> <span class="pre">requests</span> <span class="pre">current</span> <span class="pre">day</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">statistics</span> <span class="pre">ip</span> <span class="pre">current</span> <span class="pre">week</span> <span class="pre">top</span> <span class="pre">20</span></code></p>
+</dd>
+<dt>log</dt><dd><p>表格展示访问日志，用作日志可视化审计</p>
+<blockquote>
+<div><dl class="simple">
+<dt>current &lt;hour | day| week | month | year&gt;</dt><dd><p>给出统计的日志时间范围：当前小时、天、周、月、年</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>例子</dt><dd><p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">log</span> <span class="pre">current</span> <span class="pre">hour</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">log</span> <span class="pre">current</span> <span class="pre">week</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">log</span> <span class="pre">of</span> <span class="pre">ip</span> <span class="pre">8.8.8.8</span></code></p>
+</dd>
+<dt>analysis</dt><dd><p>对日志进行恶意分析，做出分析报告</p>
+<dl class="simple">
+<dt>current &lt;hour|day|week|month|year&gt;</dt><dd><p>给出分析的日志时间范围：当前小时、天、周、月、年</p>
+</dd>
+</dl>
+</dd>
+<dt>例子</dt><dd><p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">analysis</span> <span class="pre">current</span> <span class="pre">week</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">analysis</span> <span class="pre">current</span> <span class="pre">month</span></code></p>
+</dd>
+</dl>
+</dd>
+<dt>train | retrain</dt><dd><p>开始训练模型</p>
+</dd>
+<dt>locate</dt><dd><p>用IP库定位某个具体IP</p>
+<dl class="simple">
+<dt>ip   &lt;query_ip&gt;</dt><dd><p>固定字段ip, your_ip为查询ip</p>
+</dd>
+<dt>例子</dt><dd><p><code class="docutils literal notranslate"><span class="pre">locate</span> <span class="pre">ip</span> <span class="pre">8.8.8.8</span></code></p>
+</dd>
+</dl>
+</dd>
+<dt>set</dt><dd><p>设置变量</p>
+<dl class="simple">
+<dt>&lt;day | month | year | date&gt;</dt><dd><p>设置当前日期（注：date格式如2020/2/10， day | month | year 格式则为纯数字）</p>
+</dd>
+<dt>offset</dt><dd><p>设置当前日志的偏移,用于日志审计模式</p>
+</dd>
+</dl>
+</dd>
+<dt>get</dt><dd><dl class="simple">
+<dt>&lt;hour | day | month | year | date&gt;</dt><dd><p>显示当前设置的日期</p>
+</dd>
+<dt>offset</dt><dd><p>显示当前偏移</p>
+</dd>
+<dt>progress</dt><dd><p>获取模型训练进度</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>基本语法可以在通过analog控制台中输入 <strong>help</strong> 获取帮助:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">analog</span><span class="o">&gt;</span> <span class="n">help</span>
+<span class="n">Usage</span><span class="p">:</span>
+    <span class="n">show</span>  <span class="o">&lt;</span><span class="n">statistics</span><span class="o">|</span><span class="n">analysis</span><span class="o">|</span><span class="n">log</span><span class="o">&gt;</span>  <span class="o">&lt;</span><span class="n">IP</span><span class="o">|</span><span class="n">requests</span><span class="o">|</span><span class="n">UA</span><span class="o">|</span><span class="n">url</span><span class="o">&gt;</span>  <span class="o">&lt;</span><span class="n">current</span><span class="o">|</span><span class="n">last</span><span class="o">&gt;</span>  <span class="o">&lt;</span><span class="n">day</span><span class="o">|</span><span class="n">week</span><span class="o">|</span><span class="n">month</span><span class="o">|</span><span class="n">year</span><span class="o">|</span><span class="nb">all</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">top</span> <span class="n">N</span><span class="p">)</span>
+
+<span class="n">Example</span><span class="p">:</span>
+    <span class="n">show</span> <span class="n">statistics</span> <span class="n">requests</span> <span class="n">current</span> <span class="n">day</span>              <span class="n">Draw</span> <span class="n">a</span> <span class="n">chart</span> <span class="n">to</span> <span class="n">show</span> <span class="n">statistics</span> <span class="n">of</span> <span class="n">website</span> <span class="n">visit</span>
+    <span class="n">show</span> <span class="n">statistics</span> <span class="n">url</span> <span class="n">last</span> <span class="n">week</span> <span class="n">top</span> <span class="mi">10</span>              <span class="n">Draw</span> <span class="n">a</span> <span class="n">chart</span> <span class="n">to</span> <span class="n">show</span> <span class="n">statistics</span> <span class="n">of</span> <span class="n">requests</span>
+    <span class="n">show</span> <span class="n">analysis</span> <span class="n">current</span> <span class="n">day</span>                         <span class="n">Display</span> <span class="n">log</span> <span class="n">analysis</span> <span class="n">using</span> <span class="n">abnormal</span> <span class="n">detection</span> <span class="n">model</span><span class="o">.</span>
+    <span class="n">show</span> <span class="n">log</span> <span class="n">current</span> <span class="n">day</span>                              <span class="n">Display</span> <span class="n">the</span> <span class="n">log</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">table</span><span class="o">.</span>
+
+<span class="n">More</span><span class="p">:</span>
+    <span class="n">train</span><span class="o">|</span><span class="n">retrain</span>                                     <span class="n">Train</span> <span class="n">your</span> <span class="n">model</span>
+    <span class="n">get</span> <span class="n">progress</span>                                      <span class="n">Get</span> <span class="n">progress</span> <span class="n">of</span> <span class="n">training</span> <span class="n">model</span>
+    <span class="n">get</span> <span class="n">time</span><span class="o">|</span><span class="n">date</span><span class="o">|</span><span class="n">offset</span>                              <span class="n">Display</span> <span class="n">values</span>
+    <span class="nb">set</span> <span class="n">date</span> <span class="mi">2019</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="mi">3</span>                                 <span class="n">Set</span> <span class="n">date</span>
+    <span class="nb">set</span> <span class="n">day</span><span class="o">|</span><span class="n">month</span><span class="o">|</span><span class="n">year</span><span class="o">|</span><span class="n">offset</span> <span class="n">N</span>                       <span class="n">Set</span> <span class="n">values</span>
+    <span class="n">get</span> <span class="o">&lt;</span><span class="n">values</span><span class="o">&gt;</span>                                      <span class="n">Get</span> <span class="n">values</span>
+
+<span class="n">More</span> <span class="n">information</span><span class="p">:</span>
+    <span class="o">&lt;</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">testzero</span><span class="o">-</span><span class="n">wz</span><span class="o">.</span><span class="n">com</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Testzero</span><span class="o">-</span><span class="n">wz</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>接下来将以各个功能为例子逐个介绍应该如何使用analog。</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="id3">
+<h2><span class="section-number">4.2. </span>各功能示例详解<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3><span class="section-number">4.2.1. </span>统计<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h4><span class="section-number">4.2.1.1. </span>访问量柱状图<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="line-block">
+<div class="line">统计站点当前时间段的请求数量并作出访问次数柱状图，直观地查看站点访问情况。</div>
+<div class="line">其中时间段的最大区间为year，最小区间为hour。可供选择时间区间为：</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">week</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span>
+</pre></div>
+</div>
+<p><strong>示例命令:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show statistics requests current month
+analog&gt; show statistics requests current day
+</pre></div>
+</div>
+<img alt="_images/21-10-22.jpg" src="_images/21-10-22.jpg" />
+<div class="line-block">
+<div class="line">默认统计的时间节点为当前时间，若当前时间无统计日志，可设置统计时间点为适当的日期。</div>
+<div class="line">如 <code class="file docutils literal notranslate"><span class="pre">log</span></code> 目录下的日志为2020年2月3日到2月8日的，则可以输入一下命令改变统计时间节点：</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">analog</span><span class="o">&gt;</span> <span class="nb">set</span> <span class="n">date</span> <span class="mi">2020</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
+<span class="c1"># 或者逐级设置</span>
+<span class="n">analog</span><span class="o">&gt;</span> <span class="nb">set</span> <span class="n">year</span> <span class="mi">2020</span>
+<span class="n">analog</span><span class="o">&gt;</span> <span class="nb">set</span> <span class="n">month</span> <span class="mi">2</span>
+<span class="n">analog</span><span class="o">&gt;</span> <span class="nb">set</span> <span class="n">day</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>更详细的时间设置请参照 <a class="reference internal" href="#id10"><span class="std std-ref">日期设置</span></a> 。</p>
+</div>
+<div class="section" id="id6">
+<h4><span class="section-number">4.2.1.2. </span>访问统计<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="line-block">
+<div class="line">当然，我们的统计也可以基于一些主要的变量，如来访者的IP，请求的Url，甚至是User-Agent。</div>
+<div class="line">如：统计当前年份各IP的访问次数（降序），默认给出top 10。</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show statistics IP current year
+</pre></div>
+</div>
+<img alt="_images/21-10-23.jpg" src="_images/21-10-23.jpg" />
+<p>可以通过在命令后增加top &lt;N&gt;字段修改展示的统计量</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show statistics IP current year top <span class="m">30</span>
+</pre></div>
+</div>
+<img alt="_images/21-10-24.jpg" src="_images/21-10-24.jpg" />
+<p>统计当前年份请求路径url的访问次数(降序)。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show statistics IP current year
+</pre></div>
+</div>
+<img alt="_images/21-10-25.jpg" src="_images/21-10-25.jpg" />
+<p>统计当天User-Agent的访问次数(降序)。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show statistics IP current year
+</pre></div>
+</div>
+<img alt="_images/21-10-25.jpg" src="_images/21-10-25.jpg" />
+<p>统计UA的访问次数可以更好的了解当前时间段内最多次数访问者的UA情况（假设UA不变的话，如搜索引擎的爬虫），这里仅提供一种分析角度。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>统计模式支持的最小时间范围为小时，即我们可以轻松地统计某个小时内的访问。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3><span class="section-number">4.2.2. </span>日志审查<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line">由于笔者也有平时看看访问日志的习惯，而直接cat或者tail日志文件 <code class="file docutils literal notranslate"><span class="pre">access.log</span></code> 又着实不优雅，遇到gz压缩后的文件则更加让人没有想查看的“欲望”。于是乎，analog提供了更直观的日志审查方式。</div>
+<div class="line">如：输入以下命令审查当天的访问日志：</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show log current day
+</pre></div>
+</div>
+<img alt="_images/21-10-26.jpg" src="_images/21-10-26.jpg" />
+<div class="line-block">
+<div class="line">输出的表格是一个复合信息表，整合了日志里面的内容，有IP地址的归属地判断，也有实时地对当前日志记录进行的正常、恶意判断。</div>
+<div class="line">若是出现&quot;No more logs&quot;的提示则说明当前日期和日志的记录日期不符，命令中的&quot; <strong>current day</strong> &quot;是基于当前设置的时间来敲定读取范围的</div>
+<div class="line">我们可以键入&quot;get&quot;命令获得当前设置的时间</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">analog</span><span class="o">&gt;</span> <span class="n">get</span> <span class="n">time</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">time</span> <span class="o">=&gt;</span> <span class="mi">2020</span><span class="o">/</span><span class="mi">03</span><span class="o">/</span><span class="mi">30</span> <span class="mi">21</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">那么假设我们导入的日志是3月16号到3月28号的，那么根据当前设置的日期确定的时间范围内（例子中是&quot;current day&quot;，则时间范围为2020/03/30全天）是不会有记录的，那么我们需要改变当前日期到3月16号到3月28号的任意一天：</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">analog</span><span class="o">&gt;</span> <span class="nb">set</span> <span class="n">day</span> <span class="mi">20</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">time</span> <span class="n">was</span> <span class="nb">set</span> <span class="n">to</span> <span class="mi">2020</span><span class="o">/</span><span class="mi">03</span><span class="o">/</span><span class="mi">20</span> <span class="mi">21</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">这样才能审计得到对应的日志。更详细的时间设置请参照 <a class="reference internal" href="#id10"><span class="std std-ref">日期设置</span></a> 。</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="line-block">
+<div class="line">值得注意的是，当我们输入日志审查命令后，analog就已经进入了 <strong>日志审查模式</strong> 。</div>
+<div class="line">在该模式下，使用上、下方向键进行历史命令回溯功能将被暂时禁用，取而代之的是使用上、下方向键进行日志翻页。</div>
+</div>
+<p>PS: 我们可以随时按ESC键退出审计模式回到 <strong>正常模式</strong>。</p>
+</div>
+<div class="line-block">
+<div class="line">我们也注意到了，单次默认展示的记录条数都是6条，虽然有上下键快速地翻动功能，但是对于较大的日志，这种方式还是不够方便。</div>
+<div class="line">可以看到，每一条查询出来的日志记录都有一个序号，在 <cite>Ord</cite> 字段予以展示，我们可以设置偏移以达到快速定位的目的。</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; <span class="nb">set</span> offset <span class="m">100</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">键入该命令之后我们将从第101条日志记录开始审查</div>
+</div>
+<img alt="_images/12-32-21.jpg" src="_images/12-32-21.jpg" />
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>为了查询性能，analog单次仅查询5000条日志，当翻页达到5000，或者说偏移到达5000时，analog会自动查询下一5000条数据，以此类推。
+若你的性能足够，可以通过配置config.ini中的 <strong>[log]</strong> 的字段 <strong>logs_per_query</strong> ，将默认值5000换成可以接受的数值。</p>
+</div>
+<div class="line-block">
+<div class="line">其实analog在日志审计的功能下，还有一个使用的小功能：针对特定IP进行筛选其访问日志。</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show log of ip <span class="m">18</span>.27.197.252
+</pre></div>
+</div>
+<img alt="_images/10-17-26.jpg" src="_images/10-17-26.jpg" />
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">4.2.3. </span>恶意请求分析<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line">对于训练好模型的我们，需要关注某个特定时段内出现的异常报告。</div>
+<div class="line">如：我们想要获取本月的异常报告，可以输入以下命令：</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show analysis current month
+</pre></div>
+</div>
+<img alt="_images/10-19-59.jpg" src="_images/10-19-59.jpg" />
+<div class="line-block">
+<div class="line">报告中包含以下几部分：</div>
+</div>
+<ul class="simple">
+<li><p>异常访问IP的统计（IP视角）</p></li>
+<li><p>异常访问的请求URL的统计（URL视角）</p></li>
+<li><p>异常访问IP的物理地区的归并统计（IP地区视角）</p></li>
+<li><p>该时间段内的恶意请求和正常请求的百分比（恶意请求百分比视角）</p></li>
+</ul>
+<p>总而言之，我们可以通过 <strong>analysis</strong> 命令轻松地得到一个该时间段从多个视角归并的访问情况的概述。</p>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">4.2.4. </span>参数设置<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><strong>analog</strong> 内置了一些可设置的参数，我们可以根据具体情况进行设置。</p>
+</div></blockquote>
+<div class="section" id="id10">
+<span id="id11"></span><h4><span class="section-number">4.2.4.1. </span>日期设置<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p>基本上 <strong>analog</strong> 的命令都是要基于一个时间节点然后选取范围的，而 <strong>analog</strong> 默认的时间取的是当前的系统时间，那么当我们需要读取几个月前的日志数据就会显得很不方便。</p>
+<div class="line-block">
+<div class="line"><strong>analog</strong> 提供了设置时间命令，可以供使用者自由地设置当前时间。</div>
+</div>
+<div class="line-block">
+<div class="line">设置年月日命令（ <strong>N</strong> 为纯数字）：</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; <span class="nb">set</span> &lt;hour <span class="p">|</span> day <span class="p">|</span> month <span class="p">|</span> year&gt; N
+</pre></div>
+</div>
+<p>直接设置当前日期命令（注：date格式如2020/2/10）：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; <span class="nb">set</span> date <span class="m">2020</span>/2/10
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h4><span class="section-number">4.2.4.2. </span>日志偏移设置<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<p>根据我们的需求设置当前日志读取的偏移，其中 <strong>N</strong> 为纯数字:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; <span class="nb">set</span> offset N
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>当再次启动 <strong>日志模式</strong> 时，offset 将会自动地重新设置为0。</p>
+</div>
+</div>
+</div>
+<div class="section" id="ip">
+<h3><span class="section-number">4.2.5. </span>定位IP<a class="headerlink" href="#ip" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line">使用 <strong>locate</strong> 命令，我们可以调用IP库定位某个具体的IP。</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; locate ip  &lt;query_ip&gt;
+</pre></div>
+</div>
+<p><strong>locate</strong> 命令有一个固定格式，即 <strong>locate</strong> 后面需要加上固定搭配 <strong>ip</strong> , 而 <strong>your_ip</strong> 为想要查询的ip，如：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; locate ip <span class="m">106</span>.11.159.21
+<span class="o">[</span>*<span class="o">]</span> <span class="m">106</span>.11.159.21 <span class="o">=</span>&gt; 中国-浙江-杭州
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3><span class="section-number">4.2.6. </span>重新加载日志文件<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>如果我们需要重新加载日志文件，我们可以键入以下命令重新加载日志文件。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; reload
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">需要注意的是，<strong>reload</strong> 命令将询问你是否清空原有的数据表。如果选择不清空，则之前加载过的日志将继续存留在数据库中</div>
+<div class="line">在确认是否清空数据表之后，<strong>analog</strong> 将自动退出，并在下一次启动时自动加载新的日志文件。</div>
+<div class="line">此时配置文件 <code class="file docutils literal notranslate"><span class="pre">config.ini</span></code> 的 <strong>initial</strong> 字段将被程序自动设置为0。</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>analog&gt; reload
+[!] Reload option will duplicate your logs if you don&#39;t erase DB table first.
+[!] Would you like to erase table?[Y/n]
+y
+[!] Erased table `weblog`.
+[*] Please start analog once again.
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h3><span class="section-number">4.2.7. </span>检测模型相关<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h4><span class="section-number">4.2.7.1. </span>训练模型<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; train
+</pre></div>
+</div>
+<p>或者</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; retrain
+</pre></div>
+</div>
+<img alt="_images/01-16-52.jpg" src="_images/01-16-52.jpg" />
+</div>
+<div class="section" id="id16">
+<h4><span class="section-number">4.2.7.2. </span>获取训练进度<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; get progress
+</pre></div>
+</div>
+<img alt="_images/01-18-41.jpg" src="_images/01-18-41.jpg" />
+</div>
+<div class="section" id="id17">
+<h4><span class="section-number">4.2.7.3. </span>获取当前模型参数<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; get model
+</pre></div>
+</div>
+<img alt="_images/01-21-27.jpg" src="_images/01-21-27.jpg" />
+</div>
+</div>
+<div class="section" id="id18">
+<h3><span class="section-number">4.2.8. </span>清屏<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; clear
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id19">
+<h2><span class="section-number">4.3. </span>实时更新日志文件<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">实时更新功能默认开启，无需特殊配置。</div>
+<div class="line">主要思路是将配置文件里面设置的log_path路径建立一个文件监视线程，每过5秒进行一次文件改动比较，然后将更改以及创建的文件路径写进队列中。</div>
+<div class="line">另一个插入线程作为消费者，以更小的时间间隔读取共享队列，从后往前读取日志，只读取日志时间比当前数据库的最新时间大的记录。</div>
+</div>
+<div class="line-block">
+<div class="line">很明显当我们在加载完数据库之后再次放入一些比较旧的日志，即时间戳小于当前数据库的最新时间的日志文件，虽然文件监视改动会将其放入更新队列，但是因为时间范围的问题，该文件的记录不会插入到数据库中。</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>目前只是很简单地支持了实时文件更新的功能，可能会存在一些BUG。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<div class="line-block">
+<div class="line">文件实时更新主要是为了符合服务器的动态更新日志行为，其新插入的时间戳必然大于等于已存入的日志。很明显，当同一时间服务器写入日志数过大时，是会出现丢日志的情况的。</div>
+<div class="line">这是一个已知的问题，可以用诸如记录文件偏移等手段解决，但需要考虑的情况也会相应的多起来，比如文件名更换，文件移动等等。</div>
+</div>
+<p>还是那句话，欢迎动手，Geek <strong>: )</strong></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Q&amp;A.html" class="btn btn-neutral float-right" title="5. Q&amp;A" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="配置.html" class="btn btn-neutral float-left" title="3. 配置" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, T3stzer0
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+         .wy-nav-content { max-width: 1200px; }
+  </style>
+
+
+
+</body>
+</html>

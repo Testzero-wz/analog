@@ -1,0 +1,122 @@
+==================================
+安装
+==================================
+
+所需环境
+=================================
+
+| **analog** 使用了以下开源库以及组件：
++ `scikit-learn <https://github.com/scikit-learn/scikit-learn>`_ ：python下的机器学习库
++ `terminaltables <https://github.com/Robpol86/terminaltables>`_ ：图形化界面( `Robpol86 <https://github.com/Robpol86>`_ )
++ `prompt-toolkit <https://github.com/prompt-toolkit/python-prompt-toolkit>`_ ：命令行输入提示
++ `colorama <https://github.com/tartley/colorama>`_ ：跨平台终端色彩文本
++ `ipip-ipdb <https://github.com/ipipdotnet/ipdb-python>`_ ：`ipip.net <https://www.ipip.net/>`_ IP定位查询库
++ **python 3.6+** ： Python版本需求
++ **mysql** : （可选）存储日志数据库
+
+
+安装步骤
+=================================
+不同操作系统可能会有些许差别，因为是python开发，故主要的差别还是在数据库的配置上。
+
+Linux
+----------------------------------
+python依赖安装
+``````````````````````````````````
+| Linux自带python，而 **analog** 需要在python3.x上运行，推荐版本为python3.6。
+| 查看当前python版本：
+.. code-block::
+
+    $ python3 -V
+
+确保python版本符合后安装所需依赖库::
+
+    python3 -m pip install -r requirements.txt
+
+
+安装结束之后，就可以进入 :doc:`下一章 <配置>` ，对配置文件进行配置了。
+
+（可选）mysql
+``````````````````````````````````
+
+.. note::
+
+    当我们在配置文件中配置数据库类型为mysql时，我们需要安装mysql环境才能正常使用。否则我们将使用python自带的sqlite库进行数据存储，对于较大的日志可能会有性能影响，请依照实际情况进行数据库类型的选择。
+
+| 推荐安装mysql 5.6、5.7版本，因为高版本的本地连接数据库需要经过一些配置，并且在执行sql语句时会产生一些限制。
+| 若不想倒腾，可默认安装系统源自带的mysql：
+
+.. code-block:: bash
+
+    # ubuntu
+    $ sudo apt-get update
+    $ sudo apt-get install msyql-server
+    $ sudo mysql_secure_installation
+    $ systemctl status mysql.service
+
+    # centos 7
+    $ sudo yum update
+    $ sudo yum install msyql mysql-server
+    $ service mysqld start
+
+安装完毕后查看mysql是否正确运行。
+
+.. code-block:: bash
+
+    # ubuntu
+    $ service mysql status
+    # centos 7
+    $ service mysqld status
+
+请确保使用正确的密码可以进行本地登录，若出现正确密码也无法登录的情况::
+
+    Access denied for user 'root'@'localhost' (using password: YES)'
+
+
+| 请参考Stackoverflow上的处理方法 `stackoverflow-mysql-error-access-denied-for-user-rootlocalhost <https://stackoverflow.com/questions/41645309/mysql-error-access-denied-for-user-rootlocalhost>`_
+
+.. _Mysql报错:
+
+| 如果mysql版本是较高版本，比如mysql5.7.9、mysql8，则会出现执行查询语句中包含GROUP时会与sql_mode=only_full_group_by不兼容的情况。
+.. code-block::
+
+    Exception: (1055, "Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'WebLog_Analysis.weblog.time' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by")
+
+| 解决办法参考链接： `stackoverflow-disable-only-full-group-by <https://stackoverflow.com/questions/23921117/disable-only-full-group-by>`_
+| 而我的办法是在my.cnf中添加sql_mode。
+
+.. code-block:: ini
+
+    # [/etc/mysql/my.cnf] or [/etc/my.cnf]
+    [mysqld]
+    sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+
+然后重启mysql服务即可。
+
+----------------------------------
+
+Windows
+----------------------------------
+python依赖安装
+``````````````````````````````````
+安装python依赖库 *numpy* 和 *scikit-learn* 需要管理员权限，在执行安装命令前请用管理员权限打开命令行窗口::
+
+    py -3 -m pip install -r requirements.txt
+
+同样的，安装结束之后，就可以进入 :doc:`下一章 <配置>` ，对配置文件进行配置了。
+
+
+(可选)mysql
+``````````````````````````````````
+.. note::
+
+    当我们在配置文件中配置数据库类型为mysql时，我们需要安装mysql环境才能正常使用。否则我们将使用python自带的sqlite库进行数据存储，对于较大的日志可能会有性能影响，请依照实际情况进行数据库类型的选择。
+
+| Windows下的安装可能会稍微麻烦些，主要是因为需要额外的安装一些环境所需的编译开发工具/组件。
+| 对于开发者来说，Windows一般都会自带一些开发环境，我比较推荐集成开发环境 `Wampserver <http://www.wampserver.com/en/>`_ ，这类的集成式开发环境会极大减少你的安装时间成本，安装时勾选安装mysql即可。
+
+.. note::
+
+    个别版本的windows可能会出现msvcr110.dll等缺失的情况，请自行到 https://www.microsoft.com/zh-CN/download/details.aspx?id=30679
+    下载对应的C++开发组件
+

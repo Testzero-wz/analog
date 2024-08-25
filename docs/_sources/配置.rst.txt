@@ -1,0 +1,337 @@
+==================================
+配置
+==================================
+
+配置文件—config.ini
+==================================
+在analog的根目录下存在配置文件 :file:`config.ini` ，需要简单的配置一下一些用于连接数据库以及日志读取所需参数。
+
+.. code-block:: ini
+
+    [Database]
+    # Database type: mysql or sqlite
+    db_type = sqlite
+
+    # mysql config
+    host = 127.0.0.1
+    port = 3306
+    user = root
+    password =
+
+    # Database name
+    database = WebLog_Analysis
+    table_name = weblog
+
+    # Database charset
+    charset = utf8
+
+    [Log]
+    # Log file root path
+    path = /var/log/nginx/
+
+    # if you dont know what it means, leave it alone.
+    logs_per_query = 5000
+
+    # All files name include word 'access' are log file
+    log_file_pattern = .*access.*
+
+    # Time local pattern
+    time_local_pattern = %d/%b/%Y:%H:%M:%S
+
+    # Log pattern, default: nginx log format
+    log_content_pattern = ^(?P<remote_addr>.*?) - (?P<remote_user>.*) \[(?P<time_local>.*?) \+(?P<nums>[0-9]+?)\] "(?P<request>.*?)" (?P<status>.*?) (?P<body_bytes_sent>.*?) "(?P<http_referer>.*?)" "(?P<http_user_agent>.*?)" "(?P<http_x_forwarded_for>.*?)"$
+
+[Database]
+
+    db_type = sqlite
+        数据库类型，默认为sqlite，可以选择mysql，但是需要提前准备mysql环境
+
+    host
+        mysql host, 数据库类型为mysql时才有效
+
+    port
+        mysql port, 数据库类型为mysql时才有效
+
+    user
+        mysql user name, 数据库类型为mysql时才有效
+
+    password
+        mysql password, 数据库类型为mysql时才有效
+
+    database=WebLog_Analysis
+        新建数据库名，目前为固定字段，若无特殊需要，请勿随意更改
+
+    charset=utf8
+        数据库字符编码
+
+    initial
+        初始化数据库标志位。该值为0时，将重新加载日志文件到数据库。若需要手动进行删表并重新初始化时，可以手动重置为0。
+
+[Log]
+    path
+        访问日志文件的根目录。
+
+    logs_per_query
+        日志模式下单次查询日志条数，通常情况下默认即可。除非有特殊需求，不建议过大。
+
+    time_local_pattern
+        日志时间戳的解析格式化字符串，目的是将正则拿到的time_local字段解析成正确的datetime时间。时间格式化字符串可参考文档：`python官方文档 <https://docs.python.org/zh-cn/3/library/datetime.html#strftime-and-strptime-format-codes>`_
+
+    log_file_pattern = .*access.*
+        日志文件名的匹配规则，即日志文件根目录 :file:`path` 下的所有命中该正则的文件都会当成日志文件打开。目前已支持匹配txt文本、gz压缩日志文件两种。
+
+    log_content_pattern
+        读取日志内容的正则（默认为Nginx的默认日志正则）::
+
+            ^(?P<remote_addr>.*?) - (?P<remote_user>.*) \[(?P<time_local>.*?) \+[0-9]+?\] "(?P<request>.*?)" (?P<status>.*?) (?P<body_bytes_sent>.*?) "(?P<http_referer>.*?)" "(?P<http_user_agent>.*?)" "(?P<http_x_forwarded_for>.*?)"$
+
+        另外，给出apache默认的日志正则::
+
+            ^(?P<remote_addr>.*?) - (?P<remote_user>.*) \[(?P<time_local>.*?) \+[0-9]+?\] "(?P<request>.*?)" (?P<status>.*?) (?P<body_bytes_sent>.*?)$
+
+自定义你的日志
+===========================
+
+自定义读取正则
+---------------------------
+
+为了更好的拓展性和适应性，analog提供了自定义的日志内容正则的配置接口，以适应更复杂的Web访问日志。
+即 :file:`config.ini` 中的 **log_content_pattern** 字段。
+你可以自己定制读取日志内容的正则，这需要掌握一些 `正则分组的基本知识 <https://docs.python.org/zh-cn/3/library/re.html>`_ ,并且自定义的正则需要 **遵守** 以下规则:
+
+a. 必须以正则分组的形式进行读入。如(?P<name> *正则表达式* )，则name是一个合法的标识符。
+
+#. 自定义的命名分组可以超出下面列出的分组名的集合范围，但是处理时只会写入下列分组名，多余的分组将不会记录进数据库::
+
+    remote_addr,remote_user,time_local, request, status, body_bytes_sent, http_referer, http_user_agent, http_x_forwarded_for
+
+#. 因为要保证正常的日志分析统计功能，所以必须包含以下分组名::
+
+    remote_addr,time_local, request, status
+
+
+log_format的具体含义参照如下：
+
++----------------------+------------------------------------------+
+| remote_addr          | 客户端IP地址                             |
++----------------------+------------------------------------------+
+| remote_user          | 记录客户端用户名称                       |
++----------------------+------------------------------------------+
+| time_local           | 日志记录的本地时间                       |
++----------------------+------------------------------------------+
+| request              | 请求的URL和HTTP协议                      |
++----------------------+------------------------------------------+
+| status               | 请求状态                                 |
++----------------------+------------------------------------------+
+| body_bytes_sent      | 发送给客户端的字节数，不包括响应头的大小 |
++----------------------+------------------------------------------+
+| http_referer         | 上一跳转链接                             |
++----------------------+------------------------------------------+
+| http_user_agent      | 浏览器User-agent                         |
++----------------------+------------------------------------------+
+| http_x_forwarded_for | 客户端代理IP地址                         |
++----------------------+------------------------------------------+
+
+日期格式
+------------------------
+
+| **analog** 的统计、分析功能都是基于日志日期进行计算以及展示的，那么日志的日期解析就变得尤为重要了。
+| 我们若想把日志精确地解析出来，则需要学习一下python datetime的时间格式化字符，然后就可的以针对你日志进行自定义配置了。
+| Python 官方参考文档: `https://docs.python.org/zh-cn/3/library/datetime.html#strftime-and-strptime-format-codes <https://docs.python.org/zh-cn/3/library/datetime.html#strftime-and-strptime-format-codes>`_
+
++-----+------------------------------+-------------------------+----------------------+
+| Ord | Default Format               | Example                 | time_local_pattern   |
++-----+------------------------------+-------------------------+----------------------+
+| 1   | Nginx, Apache, Tomcat, Flask | 26/Mar/2020:03:23:19    | %d/%b/%Y:%H:%M:%S    |
++-----+------------------------------+-------------------------+----------------------+
+| 2   | Django                       | 2020-03-13 11:32:46,437 | %Y-%m-%d %H:%M:%S,%f |
++-----+------------------------------+-------------------------+----------------------+
+| 3   | IIS                          | 2020-01-20 17:15:17     | %Y-%m-%d %H:%M:%S    |
++-----+------------------------------+-------------------------+----------------------+
+
+| 我们默认选择第一种时间格式，很明显是因为使用这种时间格式的服务器日志最多，但我们也可以根据自己的日志类型进行设置，只需要找到对应的时间格式化字符然后把其组合起来更新到配置文件中 **time_local_pattern** 字段即可
+
+检查配置文件——check_conf.py
+==================================
+当填好 :file:`config.ini` 之后，可以运行检查程序 :file:`check_conf.py` 进行配置的正确性检测。
+
+其中程序检查项包括：
+
+a. **数据库连通性检查**： 按照所给的mysql地址、端口和账号等信息，检查数据库是否能够登录；
+
+#. **正则所需最小组检查**：检查自定义正则表达式中是否包含正常功能所需的最小正则分组；
+
+#. **正则匹配测试**：使用自定义正则进行访问日志匹配，输出匹配结果提供正确性参考。
+
+当检查程序输出没有错误提示，并且正则匹配到的文本结果如预期时，预示着配置文件得到了正确的配置。
+
+.. code-block:: bash
+
+    [*] Checking [DataBase] config...
+    [*] db_type => sqlite
+    [*] Skip connect test cause db_type is sqlite which is standard lib of python3
+    [*] Checking [Log] config...
+    [+] Pattern contains minimum group required!
+    [*] Checking time format string...
+    [*] Checking whether regx pattern works as expected...
+    [*] +++++++++++++++ Reading D:\program\log\access.log +++++++++++++++
+    [+] remote_addr => 183.136.225.56
+    [+] remote_user => -
+    [*] ============= time_local Parse Check =============
+    [*] Got time_local: 26/Mar/2020:03:23:19
+    [*] year => 2020
+    [*] month => 3
+    [*] day => 26
+    [*] hour => 3
+    [*] minute => 23
+    [*] ========== Make Sure Parse Is Correctly ==========
+    [-] nums => 0800
+    [+] request => GET / HTTP/1.1
+    [+] status => 302
+    [+] body_bytes_sent => 161
+    [+] http_referer => -
+    [+] http_user_agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0
+    [+] http_x_forwarded_for => -
+    [*] +++++++++++++++ Reading D:\program\log\access.log-20200317.gz +++++++++++++++
+    [+] remote_addr => 178.73.215.171
+    [+] remote_user => -
+    [*] ============= time_local Parse Check =============
+    [*] Got time_local: 16/Mar/2020:03:51:54
+    [*] year => 2020
+    [*] month => 3
+    [*] day => 16
+    [*] hour => 3
+    [*] minute => 51
+    [*] ========== Make Sure Parse Is Correctly ==========
+    [-] nums => 0800
+    [+] request => GET / HTTP/1.0
+    [+] status => 302
+    [+] body_bytes_sent => 161
+    [+] http_referer => -
+    [+] http_user_agent => -
+    [+] http_x_forwarded_for => -
+    [*] +++++++++++++++ Reading D:\program\log\access.log-20200318.gz +++++++++++++++
+    [+] remote_addr => 27.115.124.6
+    [+] remote_user => -
+    [*] ============= time_local Parse Check =============
+    [*] Got time_local: 17/Mar/2020:03:33:57
+    [*] year => 2020
+    [*] month => 3
+    [*] day => 17
+    [*] hour => 3
+    [*] minute => 33
+    [*] ========== Make Sure Parse Is Correctly ==========
+    [-] nums => 0800
+    [+] request => GET / HTTP/2.0
+    [+] status => 200
+    [+] body_bytes_sent => 53954
+    [+] http_referer => http://baidu.com/
+    [+] http_user_agent => Mozilla/5.0 (Linux; U; Android 8.1.0; zh-CN; EML-AL00 Build/HUAWEIEML-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.108 baidu.sogo.uc.UCBrowser/11.9.4.974 UWS/2.13.1.48 Mobi
+    le Safari/537.36 AliApp(DingTalk/4.5.11) com.alibaba.android.rimet/10487439 Channel/227200 language/zh-CN
+    [+] http_x_forwarded_for => -
+    [+] If regx pattern works as expected and no other errors occur, indicating that your config.ini was configured correctly!
+
+
+.. attention::
+
+    若出现错误，请根据错误提示耐心检查配置是否正确，否则 **analog** 将无法保证正确运行。
+
+----------------------------------
+
+.. _训练样本与测试样本的筛选:
+
+训练样本与测试样本的筛选
+==========================
+若只想使用日志统计、可视化部分功能可跳过这一步直接到 :doc:`下一章 <使用>` 开始使用
+
+若想使用异常请求识别功能，则需要 **手动** 地将一些训练数据筛选出来以供训练OneClassSVM单分类模型。
+
+首先我们需要找到路径 :file:`/analog/sample_set/` 下的三个文件，分别为：
+
+a. **test_black_log.txt** ：用于评估训练模型F1值的黑样本；
+
+#. **test_white_log.txt** ：用于评估训练模型F1值的白样本；
+
+#. **train.txt** ：用于训练OneClassSVM模型的样本。
+
+其中 **test_black_log.txt** 和 **test_white_log.txt** 分别要求为全黑或者全白，因为这两个txt是用于评估模型的训练效果的。
+
+而由于我们使用的模型是OneClassSVM，属于单分类模型，所以也要求 **train.txt** 中的样本 **尽量** 全为白样本:
+
+1. 保证样本的数量(视网站情况适量加减，太少不准确，太多影响参数优化速度);
+
+2. 尽可能地覆盖正常访问流量;
+
+3. 保证异常率不超过5%，否则会影响模型预测效果；
+
+4. 训练样本、测试样本和访问日志读取是使用同一套正则，请使用相同的格式放入各个样本集中。
+
+白样本可能比较好取，毕竟我们访问日志中大多数都是白样本，花少量的时间就能达到大量的白样本。但是黑样本由于需要符合正则格式，则需要在日常访问日志中手动筛选一些黑样本（约1000条）进行模型预测结果测试。
+
+虽然目前恶意请求的分析只是用到了请求中的url，即 :file:`request` 字段，但是为了后续的拓展性，还是要求训练样本集 :file:`/analog/sample_set/train.txt` 和测试样本集 :file:`/analog/sample_set/test_white_log.txt` 、 :file:`/analog/sample_set/test_black_log.txt` 均符合配置文件中的正则对应格式。
+
+.. tip::
+
+    相关问题的讨论，训练选取的模型，参数优化的具体细节请查看我的博客原文 `《基于机器学习的Web日志异常检测实践》 <https://www.testzero-wz.com/2018/10/22/%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84Web%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%AE%9E%E8%B7%B5/>`_
+
+
+
+*BTW，这可能是最耗时间的活了。* 筛选时间长短取决于你的网站大小以及是否能快速地收集较为完整的访问数据集。
+
+当然也有偷懒一点的方法：
+
+可以使用我开源的一个轻量级Web扫描器——`wscan <https://github.com/Testzero-wz/wscan>`_ ，仅需两步::
+
+    $ python3 -m pip install wscan -U
+    $ wscan -u "https://your_web_site.com" -m -s -t 20
+
+.. note::
+
+    Windows系统需要将Python安装路径下的脚本目录 C:\\Users\\%USER%\\AppData\\Local\\Programs\\Python\\Python36\\Scripts 加入环境变量中
+
+然后耐心等待wscan输出结束，扫描器将遍历你网站的所有页面以及链接，包括图片、js等静态资源。
+随后我们可以在服务器上的访问日志中拿到覆盖绝大部分的网站访问记录，将wscan产生的访问日志添加到train.txt中即可，如果覆盖不全可以手动添加一下没有爬到的连接。
+而对于我的个人的静态博客而言，我分别选择了如下条数的日志作为样本，以供参考：
+
+========================  ============   ======
+样本集                     日志条数        异常率
+========================  ============   ======
+train.txt                 7617            1%
+test_white_log.txt        1319            0%
+test_black_log.txt        1611            100%
+========================  ============   ======
+
+.. warning::
+
+    网站连通性不好可以将请求超时参数-t调大点，如30。另外大型的网站建议自己手动筛选，wscan可能支持不来大型网站的全站遍历。
+
+
+当我们全部整理好训练数据之后，就可以进入到 **analog** 的控制台界面，输入下列命令进行模型的训练。::
+
+    analog> train
+
+或者::
+
+    analog> retrain
+
+该操作会覆盖之前存在于路径 :file:`/analog/cache/` 中的模型缓存文件，若想保留，请提前备份。
+
+训练过程是异步的，我们可以通过输入下列命令获取当前训练进度::
+
+    analog> get progress
+
+当我们得到训练结束的通知时，说明训练完成，模型缓存文件已更新，接下来就可以使用下一章中的异常分析的功能了。
+
+
+
+
+更换IP定位离线库
+=====================
+
+| analog采用的是 `ipip.net <https://www.ipip.net/>`_ 提供的IP离线数据库。
+| 若想更新IP库请自行到 https://www.ipip.net 进行下载 :file:`.ipdb` 文件，并替换数据库文件 :file:`/analog/ipdb/ip.ipdb` ，默认请使用相同的名字 :file:`ip.ipdb` 命名此新数据库文件.
+
+.. warning::
+    在本人开发时使用并下载该IP库并未要求注册登录，而现在下载最新的数据库是需要注册下载的。
+    请各位在使用、下载 :file:`ip.ipdb` 文件时，遵守 `ipip.net <https://www.ipip.net/>`_ 的使用规定，勿做正式商业用途。
+

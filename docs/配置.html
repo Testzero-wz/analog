@@ -1,0 +1,581 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="cn" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="cn" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3. 配置 &mdash; Analog 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. 使用指南" href="使用.html" />
+    <link rel="prev" title="2. 安装" href="安装.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Analog
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">总目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="简介.html">1. 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="安装.html">2. 安装</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. 配置</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#config-ini">3.1. 配置文件—config.ini</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">3.2. 自定义你的日志</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3.2.1. 自定义读取正则</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">3.2.2. 日期格式</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#check-conf-py">3.3. 检查配置文件——check_conf.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">3.4. 训练样本与测试样本的筛选</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ip">3.5. 更换IP定位离线库</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="使用.html">4. 使用指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Q&amp;A.html">5. Q&amp;A</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Analog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>配置</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/配置.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><span class="section-number">3. </span>配置<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="config-ini">
+<h2><span class="section-number">3.1. </span>配置文件—config.ini<a class="headerlink" href="#config-ini" title="Permalink to this headline">¶</a></h2>
+<p>在analog的根目录下存在配置文件 <code class="file docutils literal notranslate"><span class="pre">config.ini</span></code> ，需要简单的配置一下一些用于连接数据库以及日志读取所需参数。</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Database]</span>
+<span class="c1"># Database type: mysql or sqlite</span>
+<span class="na">db_type</span> <span class="o">=</span> <span class="s">sqlite</span>
+
+<span class="c1"># mysql config</span>
+<span class="na">host</span> <span class="o">=</span> <span class="s">127.0.0.1</span>
+<span class="na">port</span> <span class="o">=</span> <span class="s">3306</span>
+<span class="na">user</span> <span class="o">=</span> <span class="s">root</span>
+<span class="na">password</span> <span class="o">=</span>
+
+<span class="c1"># Database name</span>
+<span class="na">database</span> <span class="o">=</span> <span class="s">WebLog_Analysis</span>
+<span class="na">table_name</span> <span class="o">=</span> <span class="s">weblog</span>
+
+<span class="c1"># Database charset</span>
+<span class="na">charset</span> <span class="o">=</span> <span class="s">utf8</span>
+
+<span class="k">[Log]</span>
+<span class="c1"># Log file root path</span>
+<span class="na">path</span> <span class="o">=</span> <span class="s">/var/log/nginx/</span>
+
+<span class="c1"># if you dont know what it means, leave it alone.</span>
+<span class="na">logs_per_query</span> <span class="o">=</span> <span class="s">5000</span>
+
+<span class="c1"># All files name include word &#39;access&#39; are log file</span>
+<span class="na">log_file_pattern</span> <span class="o">=</span> <span class="s">.*access.*</span>
+
+<span class="c1"># Time local pattern</span>
+<span class="na">time_local_pattern</span> <span class="o">=</span> <span class="s">%d/%b/%Y:%H:%M:%S</span>
+
+<span class="c1"># Log pattern, default: nginx log format</span>
+<span class="na">log_content_pattern</span> <span class="o">=</span> <span class="s">^(?P&lt;remote_addr&gt;.*?) - (?P&lt;remote_user&gt;.*) \[(?P&lt;time_local&gt;.*?) \+(?P&lt;nums&gt;[0-9]+?)\] &quot;(?P&lt;request&gt;.*?)&quot; (?P&lt;status&gt;.*?) (?P&lt;body_bytes_sent&gt;.*?) &quot;(?P&lt;http_referer&gt;.*?)&quot; &quot;(?P&lt;http_user_agent&gt;.*?)&quot; &quot;(?P&lt;http_x_forwarded_for&gt;.*?)&quot;$</span>
+</pre></div>
+</div>
+<p>[Database]</p>
+<blockquote>
+<div><dl class="simple">
+<dt>db_type = sqlite</dt><dd><p>数据库类型，默认为sqlite，可以选择mysql，但是需要提前准备mysql环境</p>
+</dd>
+<dt>host</dt><dd><p>mysql host, 数据库类型为mysql时才有效</p>
+</dd>
+<dt>port</dt><dd><p>mysql port, 数据库类型为mysql时才有效</p>
+</dd>
+<dt>user</dt><dd><p>mysql user name, 数据库类型为mysql时才有效</p>
+</dd>
+<dt>password</dt><dd><p>mysql password, 数据库类型为mysql时才有效</p>
+</dd>
+<dt>database=WebLog_Analysis</dt><dd><p>新建数据库名，目前为固定字段，若无特殊需要，请勿随意更改</p>
+</dd>
+<dt>charset=utf8</dt><dd><p>数据库字符编码</p>
+</dd>
+<dt>initial</dt><dd><p>初始化数据库标志位。该值为0时，将重新加载日志文件到数据库。若需要手动进行删表并重新初始化时，可以手动重置为0。</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>[Log]</dt><dd><dl>
+<dt>path</dt><dd><p>访问日志文件的根目录。</p>
+</dd>
+<dt>logs_per_query</dt><dd><p>日志模式下单次查询日志条数，通常情况下默认即可。除非有特殊需求，不建议过大。</p>
+</dd>
+<dt>time_local_pattern</dt><dd><p>日志时间戳的解析格式化字符串，目的是将正则拿到的time_local字段解析成正确的datetime时间。时间格式化字符串可参考文档：<a class="reference external" href="https://docs.python.org/zh-cn/3/library/datetime.html#strftime-and-strptime-format-codes">python官方文档</a></p>
+</dd>
+<dt>log_file_pattern = .*access.*</dt><dd><p>日志文件名的匹配规则，即日志文件根目录 <code class="file docutils literal notranslate"><span class="pre">path</span></code> 下的所有命中该正则的文件都会当成日志文件打开。目前已支持匹配txt文本、gz压缩日志文件两种。</p>
+</dd>
+<dt>log_content_pattern</dt><dd><p>读取日志内容的正则（默认为Nginx的默认日志正则）:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>^(?P&lt;remote_addr&gt;.*?) - (?P&lt;remote_user&gt;.*) \[(?P&lt;time_local&gt;.*?) \+[0-9]+?\] &quot;(?P&lt;request&gt;.*?)&quot; (?P&lt;status&gt;.*?) (?P&lt;body_bytes_sent&gt;.*?) &quot;(?P&lt;http_referer&gt;.*?)&quot; &quot;(?P&lt;http_user_agent&gt;.*?)&quot; &quot;(?P&lt;http_x_forwarded_for&gt;.*?)&quot;$
+</pre></div>
+</div>
+<p>另外，给出apache默认的日志正则:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>^(?P&lt;remote_addr&gt;.*?) - (?P&lt;remote_user&gt;.*) \[(?P&lt;time_local&gt;.*?) \+[0-9]+?\] &quot;(?P&lt;request&gt;.*?)&quot; (?P&lt;status&gt;.*?) (?P&lt;body_bytes_sent&gt;.*?)$
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">3.2. </span>自定义你的日志<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3><span class="section-number">3.2.1. </span>自定义读取正则<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>为了更好的拓展性和适应性，analog提供了自定义的日志内容正则的配置接口，以适应更复杂的Web访问日志。
+即 <code class="file docutils literal notranslate"><span class="pre">config.ini</span></code> 中的 <strong>log_content_pattern</strong> 字段。
+你可以自己定制读取日志内容的正则，这需要掌握一些 <a class="reference external" href="https://docs.python.org/zh-cn/3/library/re.html">正则分组的基本知识</a> ,并且自定义的正则需要 <strong>遵守</strong> 以下规则:</p>
+<ol class="loweralpha">
+<li><p>必须以正则分组的形式进行读入。如(?P&lt;name&gt; <em>正则表达式</em> )，则name是一个合法的标识符。</p></li>
+<li><p>自定义的命名分组可以超出下面列出的分组名的集合范围，但是处理时只会写入下列分组名，多余的分组将不会记录进数据库:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">remote_addr</span><span class="p">,</span><span class="n">remote_user</span><span class="p">,</span><span class="n">time_local</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">body_bytes_sent</span><span class="p">,</span> <span class="n">http_referer</span><span class="p">,</span> <span class="n">http_user_agent</span><span class="p">,</span> <span class="n">http_x_forwarded_for</span>
+</pre></div>
+</div>
+</li>
+<li><p>因为要保证正常的日志分析统计功能，所以必须包含以下分组名:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">remote_addr</span><span class="p">,</span><span class="n">time_local</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">status</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>log_format的具体含义参照如下：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 66%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>remote_addr</p></td>
+<td><p>客户端IP地址</p></td>
+</tr>
+<tr class="row-even"><td><p>remote_user</p></td>
+<td><p>记录客户端用户名称</p></td>
+</tr>
+<tr class="row-odd"><td><p>time_local</p></td>
+<td><p>日志记录的本地时间</p></td>
+</tr>
+<tr class="row-even"><td><p>request</p></td>
+<td><p>请求的URL和HTTP协议</p></td>
+</tr>
+<tr class="row-odd"><td><p>status</p></td>
+<td><p>请求状态</p></td>
+</tr>
+<tr class="row-even"><td><p>body_bytes_sent</p></td>
+<td><p>发送给客户端的字节数，不包括响应头的大小</p></td>
+</tr>
+<tr class="row-odd"><td><p>http_referer</p></td>
+<td><p>上一跳转链接</p></td>
+</tr>
+<tr class="row-even"><td><p>http_user_agent</p></td>
+<td><p>浏览器User-agent</p></td>
+</tr>
+<tr class="row-odd"><td><p>http_x_forwarded_for</p></td>
+<td><p>客户端代理IP地址</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id5">
+<h3><span class="section-number">3.2.2. </span>日期格式<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><strong>analog</strong> 的统计、分析功能都是基于日志日期进行计算以及展示的，那么日志的日期解析就变得尤为重要了。</div>
+<div class="line">我们若想把日志精确地解析出来，则需要学习一下python datetime的时间格式化字符，然后就可的以针对你日志进行自定义配置了。</div>
+<div class="line">Python 官方参考文档: <a class="reference external" href="https://docs.python.org/zh-cn/3/library/datetime.html#strftime-and-strptime-format-codes">https://docs.python.org/zh-cn/3/library/datetime.html#strftime-and-strptime-format-codes</a></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 37%" />
+<col style="width: 30%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Ord</p></td>
+<td><p>Default Format</p></td>
+<td><p>Example</p></td>
+<td><p>time_local_pattern</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Nginx, Apache, Tomcat, Flask</p></td>
+<td><p>26/Mar/2020:03:23:19</p></td>
+<td><p>%d/%b/%Y:%H:%M:%S</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Django</p></td>
+<td><p>2020-03-13 11:32:46,437</p></td>
+<td><p>%Y-%m-%d %H:%M:%S,%f</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>IIS</p></td>
+<td><p>2020-01-20 17:15:17</p></td>
+<td><p>%Y-%m-%d %H:%M:%S</p></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">我们默认选择第一种时间格式，很明显是因为使用这种时间格式的服务器日志最多，但我们也可以根据自己的日志类型进行设置，只需要找到对应的时间格式化字符然后把其组合起来更新到配置文件中 <strong>time_local_pattern</strong> 字段即可</div>
+</div>
+</div>
+</div>
+<div class="section" id="check-conf-py">
+<h2><span class="section-number">3.3. </span>检查配置文件——check_conf.py<a class="headerlink" href="#check-conf-py" title="Permalink to this headline">¶</a></h2>
+<p>当填好 <code class="file docutils literal notranslate"><span class="pre">config.ini</span></code> 之后，可以运行检查程序 <code class="file docutils literal notranslate"><span class="pre">check_conf.py</span></code> 进行配置的正确性检测。</p>
+<p>其中程序检查项包括：</p>
+<ol class="loweralpha simple">
+<li><p><strong>数据库连通性检查</strong>： 按照所给的mysql地址、端口和账号等信息，检查数据库是否能够登录；</p></li>
+<li><p><strong>正则所需最小组检查</strong>：检查自定义正则表达式中是否包含正常功能所需的最小正则分组；</p></li>
+<li><p><strong>正则匹配测试</strong>：使用自定义正则进行访问日志匹配，输出匹配结果提供正确性参考。</p></li>
+</ol>
+<p>当检查程序输出没有错误提示，并且正则匹配到的文本结果如预期时，预示着配置文件得到了正确的配置。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>*<span class="o">]</span> Checking <span class="o">[</span>DataBase<span class="o">]</span> config...
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">db_type</span> <span class="o">=</span>&gt; sqlite
+<span class="o">[</span>*<span class="o">]</span> Skip connect <span class="nb">test</span> cause db_type is sqlite which is standard lib of python3
+<span class="o">[</span>*<span class="o">]</span> Checking <span class="o">[</span>Log<span class="o">]</span> config...
+<span class="o">[</span>+<span class="o">]</span> Pattern contains minimum group required!
+<span class="o">[</span>*<span class="o">]</span> Checking <span class="nb">time</span> format string...
+<span class="o">[</span>*<span class="o">]</span> Checking whether regx pattern works as expected...
+<span class="o">[</span>*<span class="o">]</span> +++++++++++++++ Reading D:<span class="se">\p</span>rogram<span class="se">\l</span>og<span class="se">\a</span>ccess.log +++++++++++++++
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">remote_addr</span> <span class="o">=</span>&gt; <span class="m">183</span>.136.225.56
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">remote_user</span> <span class="o">=</span>&gt; -
+<span class="o">[</span>*<span class="o">]</span> <span class="o">=============</span> time_local Parse <span class="nv">Check</span> <span class="o">=============</span>
+<span class="o">[</span>*<span class="o">]</span> Got time_local: <span class="m">26</span>/Mar/2020:03:23:19
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">year</span> <span class="o">=</span>&gt; <span class="m">2020</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">month</span> <span class="o">=</span>&gt; <span class="m">3</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">day</span> <span class="o">=</span>&gt; <span class="m">26</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">hour</span> <span class="o">=</span>&gt; <span class="m">3</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">minute</span> <span class="o">=</span>&gt; <span class="m">23</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="o">==========</span> Make Sure Parse Is <span class="nv">Correctly</span> <span class="o">==========</span>
+<span class="o">[</span>-<span class="o">]</span> <span class="nv">nums</span> <span class="o">=</span>&gt; <span class="m">0800</span>
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">request</span> <span class="o">=</span>&gt; GET / HTTP/1.1
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">status</span> <span class="o">=</span>&gt; <span class="m">302</span>
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">body_bytes_sent</span> <span class="o">=</span>&gt; <span class="m">161</span>
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">http_referer</span> <span class="o">=</span>&gt; -
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">http_user_agent</span> <span class="o">=</span>&gt; Mozilla/5.0 <span class="o">(</span>Macintosh<span class="p">;</span> Intel Mac OS X <span class="m">10</span>.11<span class="p">;</span> rv:47.0<span class="o">)</span> Gecko/20100101 Firefox/47.0
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">http_x_forwarded_for</span> <span class="o">=</span>&gt; -
+<span class="o">[</span>*<span class="o">]</span> +++++++++++++++ Reading D:<span class="se">\p</span>rogram<span class="se">\l</span>og<span class="se">\a</span>ccess.log-20200317.gz +++++++++++++++
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">remote_addr</span> <span class="o">=</span>&gt; <span class="m">178</span>.73.215.171
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">remote_user</span> <span class="o">=</span>&gt; -
+<span class="o">[</span>*<span class="o">]</span> <span class="o">=============</span> time_local Parse <span class="nv">Check</span> <span class="o">=============</span>
+<span class="o">[</span>*<span class="o">]</span> Got time_local: <span class="m">16</span>/Mar/2020:03:51:54
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">year</span> <span class="o">=</span>&gt; <span class="m">2020</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">month</span> <span class="o">=</span>&gt; <span class="m">3</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">day</span> <span class="o">=</span>&gt; <span class="m">16</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">hour</span> <span class="o">=</span>&gt; <span class="m">3</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">minute</span> <span class="o">=</span>&gt; <span class="m">51</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="o">==========</span> Make Sure Parse Is <span class="nv">Correctly</span> <span class="o">==========</span>
+<span class="o">[</span>-<span class="o">]</span> <span class="nv">nums</span> <span class="o">=</span>&gt; <span class="m">0800</span>
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">request</span> <span class="o">=</span>&gt; GET / HTTP/1.0
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">status</span> <span class="o">=</span>&gt; <span class="m">302</span>
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">body_bytes_sent</span> <span class="o">=</span>&gt; <span class="m">161</span>
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">http_referer</span> <span class="o">=</span>&gt; -
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">http_user_agent</span> <span class="o">=</span>&gt; -
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">http_x_forwarded_for</span> <span class="o">=</span>&gt; -
+<span class="o">[</span>*<span class="o">]</span> +++++++++++++++ Reading D:<span class="se">\p</span>rogram<span class="se">\l</span>og<span class="se">\a</span>ccess.log-20200318.gz +++++++++++++++
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">remote_addr</span> <span class="o">=</span>&gt; <span class="m">27</span>.115.124.6
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">remote_user</span> <span class="o">=</span>&gt; -
+<span class="o">[</span>*<span class="o">]</span> <span class="o">=============</span> time_local Parse <span class="nv">Check</span> <span class="o">=============</span>
+<span class="o">[</span>*<span class="o">]</span> Got time_local: <span class="m">17</span>/Mar/2020:03:33:57
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">year</span> <span class="o">=</span>&gt; <span class="m">2020</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">month</span> <span class="o">=</span>&gt; <span class="m">3</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">day</span> <span class="o">=</span>&gt; <span class="m">17</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">hour</span> <span class="o">=</span>&gt; <span class="m">3</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="nv">minute</span> <span class="o">=</span>&gt; <span class="m">33</span>
+<span class="o">[</span>*<span class="o">]</span> <span class="o">==========</span> Make Sure Parse Is <span class="nv">Correctly</span> <span class="o">==========</span>
+<span class="o">[</span>-<span class="o">]</span> <span class="nv">nums</span> <span class="o">=</span>&gt; <span class="m">0800</span>
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">request</span> <span class="o">=</span>&gt; GET / HTTP/2.0
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">status</span> <span class="o">=</span>&gt; <span class="m">200</span>
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">body_bytes_sent</span> <span class="o">=</span>&gt; <span class="m">53954</span>
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">http_referer</span> <span class="o">=</span>&gt; http://baidu.com/
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">http_user_agent</span> <span class="o">=</span>&gt; Mozilla/5.0 <span class="o">(</span>Linux<span class="p">;</span> U<span class="p">;</span> Android <span class="m">8</span>.1.0<span class="p">;</span> zh-CN<span class="p">;</span> EML-AL00 Build/HUAWEIEML-AL00<span class="o">)</span> AppleWebKit/537.36 <span class="o">(</span>KHTML, like Gecko<span class="o">)</span> Version/4.0 Chrome/57.0.2987.108 baidu.sogo.uc.UCBrowser/11.9.4.974 UWS/2.13.1.48 Mobi
+le Safari/537.36 AliApp<span class="o">(</span>DingTalk/4.5.11<span class="o">)</span> com.alibaba.android.rimet/10487439 Channel/227200 language/zh-CN
+<span class="o">[</span>+<span class="o">]</span> <span class="nv">http_x_forwarded_for</span> <span class="o">=</span>&gt; -
+<span class="o">[</span>+<span class="o">]</span> If regx pattern works as expected and no other errors occur, indicating that your config.ini was configured correctly!
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>若出现错误，请根据错误提示耐心检查配置是否正确，否则 <strong>analog</strong> 将无法保证正确运行。</p>
+</div>
+<hr class="docutils" />
+</div>
+<div class="section" id="id6">
+<span id="id7"></span><h2><span class="section-number">3.4. </span>训练样本与测试样本的筛选<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>若只想使用日志统计、可视化部分功能可跳过这一步直接到 <a class="reference internal" href="使用.html"><span class="doc">下一章</span></a> 开始使用</p>
+<p>若想使用异常请求识别功能，则需要 <strong>手动</strong> 地将一些训练数据筛选出来以供训练OneClassSVM单分类模型。</p>
+<p>首先我们需要找到路径 <code class="file docutils literal notranslate"><span class="pre">/analog/sample_set/</span></code> 下的三个文件，分别为：</p>
+<ol class="loweralpha simple">
+<li><p><strong>test_black_log.txt</strong> ：用于评估训练模型F1值的黑样本；</p></li>
+<li><p><strong>test_white_log.txt</strong> ：用于评估训练模型F1值的白样本；</p></li>
+<li><p><strong>train.txt</strong> ：用于训练OneClassSVM模型的样本。</p></li>
+</ol>
+<p>其中 <strong>test_black_log.txt</strong> 和 <strong>test_white_log.txt</strong> 分别要求为全黑或者全白，因为这两个txt是用于评估模型的训练效果的。</p>
+<p>而由于我们使用的模型是OneClassSVM，属于单分类模型，所以也要求 <strong>train.txt</strong> 中的样本 <strong>尽量</strong> 全为白样本:</p>
+<ol class="arabic simple">
+<li><p>保证样本的数量(视网站情况适量加减，太少不准确，太多影响参数优化速度);</p></li>
+<li><p>尽可能地覆盖正常访问流量;</p></li>
+<li><p>保证异常率不超过5%，否则会影响模型预测效果；</p></li>
+<li><p>训练样本、测试样本和访问日志读取是使用同一套正则，请使用相同的格式放入各个样本集中。</p></li>
+</ol>
+<p>白样本可能比较好取，毕竟我们访问日志中大多数都是白样本，花少量的时间就能达到大量的白样本。但是黑样本由于需要符合正则格式，则需要在日常访问日志中手动筛选一些黑样本（约1000条）进行模型预测结果测试。</p>
+<p>虽然目前恶意请求的分析只是用到了请求中的url，即 <code class="file docutils literal notranslate"><span class="pre">request</span></code> 字段，但是为了后续的拓展性，还是要求训练样本集 <code class="file docutils literal notranslate"><span class="pre">/analog/sample_set/train.txt</span></code> 和测试样本集 <code class="file docutils literal notranslate"><span class="pre">/analog/sample_set/test_white_log.txt</span></code> 、 <code class="file docutils literal notranslate"><span class="pre">/analog/sample_set/test_black_log.txt</span></code> 均符合配置文件中的正则对应格式。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>相关问题的讨论，训练选取的模型，参数优化的具体细节请查看我的博客原文 <a class="reference external" href="https://www.testzero-wz.com/2018/10/22/%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84Web%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%AE%9E%E8%B7%B5/">《基于机器学习的Web日志异常检测实践》</a></p>
+</div>
+<p><em>BTW，这可能是最耗时间的活了。</em> 筛选时间长短取决于你的网站大小以及是否能快速地收集较为完整的访问数据集。</p>
+<p>当然也有偷懒一点的方法：</p>
+<p>可以使用我开源的一个轻量级Web扫描器——<a class="reference external" href="https://github.com/Testzero-wz/wscan">wscan</a> ，仅需两步:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m pip install wscan -U
+$ wscan -u &quot;https://your_web_site.com&quot; -m -s -t 20
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Windows系统需要将Python安装路径下的脚本目录 C:\Users\%USER%\AppData\Local\Programs\Python\Python36\Scripts 加入环境变量中</p>
+</div>
+<p>然后耐心等待wscan输出结束，扫描器将遍历你网站的所有页面以及链接，包括图片、js等静态资源。
+随后我们可以在服务器上的访问日志中拿到覆盖绝大部分的网站访问记录，将wscan产生的访问日志添加到train.txt中即可，如果覆盖不全可以手动添加一下没有爬到的连接。
+而对于我的个人的静态博客而言，我分别选择了如下条数的日志作为样本，以供参考：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 27%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>样本集</p></th>
+<th class="head"><p>日志条数</p></th>
+<th class="head"><p>异常率</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>train.txt</p></td>
+<td><p>7617</p></td>
+<td><p>1%</p></td>
+</tr>
+<tr class="row-odd"><td><p>test_white_log.txt</p></td>
+<td><p>1319</p></td>
+<td><p>0%</p></td>
+</tr>
+<tr class="row-even"><td><p>test_black_log.txt</p></td>
+<td><p>1611</p></td>
+<td><p>100%</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>网站连通性不好可以将请求超时参数-t调大点，如30。另外大型的网站建议自己手动筛选，wscan可能支持不来大型网站的全站遍历。</p>
+</div>
+<p>当我们全部整理好训练数据之后，就可以进入到 <strong>analog</strong> 的控制台界面，输入下列命令进行模型的训练。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">analog</span><span class="o">&gt;</span> <span class="n">train</span>
+</pre></div>
+</div>
+<p>或者:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">analog</span><span class="o">&gt;</span> <span class="n">retrain</span>
+</pre></div>
+</div>
+<p>该操作会覆盖之前存在于路径 <code class="file docutils literal notranslate"><span class="pre">/analog/cache/</span></code> 中的模型缓存文件，若想保留，请提前备份。</p>
+<p>训练过程是异步的，我们可以通过输入下列命令获取当前训练进度:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">analog</span><span class="o">&gt;</span> <span class="n">get</span> <span class="n">progress</span>
+</pre></div>
+</div>
+<p>当我们得到训练结束的通知时，说明训练完成，模型缓存文件已更新，接下来就可以使用下一章中的异常分析的功能了。</p>
+</div>
+<div class="section" id="ip">
+<h2><span class="section-number">3.5. </span>更换IP定位离线库<a class="headerlink" href="#ip" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">analog采用的是 <a class="reference external" href="https://www.ipip.net/">ipip.net</a> 提供的IP离线数据库。</div>
+<div class="line">若想更新IP库请自行到 <a class="reference external" href="https://www.ipip.net">https://www.ipip.net</a> 进行下载 <code class="file docutils literal notranslate"><span class="pre">.ipdb</span></code> 文件，并替换数据库文件 <code class="file docutils literal notranslate"><span class="pre">/analog/ipdb/ip.ipdb</span></code> ，默认请使用相同的名字 <code class="file docutils literal notranslate"><span class="pre">ip.ipdb</span></code> 命名此新数据库文件.</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>在本人开发时使用并下载该IP库并未要求注册登录，而现在下载最新的数据库是需要注册下载的。
+请各位在使用、下载 <code class="file docutils literal notranslate"><span class="pre">ip.ipdb</span></code> 文件时，遵守 <a class="reference external" href="https://www.ipip.net/">ipip.net</a> 的使用规定，勿做正式商业用途。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="使用.html" class="btn btn-neutral float-right" title="4. 使用指南" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="安装.html" class="btn btn-neutral float-left" title="2. 安装" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, T3stzer0
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+         .wy-nav-content { max-width: 1200px; }
+  </style>
+
+
+
+</body>
+</html>
