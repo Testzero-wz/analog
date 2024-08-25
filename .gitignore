@@ -4,3 +4,4 @@ __pycache__
 idea
 *.db
 *.pkl
+doc/*

@@ -1,0 +1,89 @@
+==================================
+简介
+==================================
+
+概述
+==================================
+| **analog** 是一款命令行下的Web日志审计工具，旨在帮助使用者能够在终端上快速得进行Web日志审计和排查，包含了日志审计、统计的终端图形化和机器学习识别恶意请求的功能。
+| 模型相关问题的讨论，如训练选取的模型、参数优化等具体细节请查看我的博客原文 `《基于机器学习的Web日志异常检测实践》 <https://www.testzero-wz.com/2018/10/22/%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84Web%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%AE%9E%E8%B7%B5/>`_
+
+
+	
+当前支持的终端类型
+==================================
++ **Linux Terminal**
++ `Cmder <https://cmder.net/>`_
++ `Xshell <https://www.netsarang.com/zh/xshell/>`_
++ `Bitvise SSH <https://www.putty.org/>`_
++ `Putty <https://www.putty.org/>`_ (表格字符会显示为q，但不影响使用)
++ `Terminus <https://eugeny.github.io/terminus/>`_ (某些情况下可能会出现奇怪的自动换行)
++ **Windows Dos** (需要自行设置为等宽字体，默认为点阵字体)
+
+.. note::
+    所有终端均在使用前应自行设置为使用等宽字体显示。
+
+.. tip::
+    | 新版Windows10的Dos终端下已经经过了等宽测试。
+    | 其他系统版本出现不对齐的情况可以下载开源字体 `Iosevka <https://github.com/be5invis/Iosevka/releases>`_ ，并在终端将代码页改为437然后选择该字体，经测试效果很不错。`如何修改Dos字体 <https://www.cnblogs.com/kangflict/p/4111010.html>`_
+
+
+特性介绍
+==================================
+
+访问量统计
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    analog> show statistics requests current day
+
+.. image:: /_img/18-36-03.jpg
+
+
+日志审查
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   analog> show log current month
+
+
+.. image:: /_img/10-15-19.jpg
+
+IP、请求等统计
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   analog> show statistics ip current day top 20
+
+
+.. image:: /_img/10-17-25.jpg
+
+.. code-block:: bash
+
+   analog> show statistics url current day top 20
+
+
+.. image:: /_img/10-18-13.jpg
+
+恶意请求分析
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+包括恶意IP定位、恶意请求统计，恶意IP地理分布统计，正、异常请求比
+
+.. code-block:: bash
+
+   analog>  show analysis current month
+
+
+.. image:: /_img/10-19-59.jpg
+
+
+写在最后
+========================
+
+**analog** 是本人大三时空闲时间编写的，其主要目的为了了解机器学习及其初步实践。当时其实有许多的想法以及环境限制，
+比如想到点子找不到数据、找到数据没有显卡跑等等，所以 **analog** 注定是 *不完善、不完美的* 。
+
+也请不少邮箱私信我的大佬们见谅，在本人学业和工作繁忙的时候一个依赖库的接口出现了变化，导致无法运行，这当然也是一个不大不小的问题，
+但我相信许多对 **analog** 感兴趣的Geek都是动手能力极强的，缺的只是一个文档，不是吗: )

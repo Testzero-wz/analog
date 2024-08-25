@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="cn" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="cn" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2. 安装 &mdash; Analog 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. 配置" href="配置.html" />
+    <link rel="prev" title="1. 简介" href="简介.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Analog
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">总目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="简介.html">1. 简介</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. 安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">2.1. 所需环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2.2. 安装步骤</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linux">2.2.1. Linux</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#python">2.2.1.1. python依赖安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mysql">2.2.1.2. （可选）mysql</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">2.2.2. Windows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.2.2.1. python依赖安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.2.2.2. (可选)mysql</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="配置.html">3. 配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="使用.html">4. 使用指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Q&amp;A.html">5. Q&amp;A</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Analog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">2. </span>安装</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/安装.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><span class="section-number">2. </span>安装<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2><span class="section-number">2.1. </span>所需环境<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>analog</strong> 使用了以下开源库以及组件：</div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/scikit-learn/scikit-learn">scikit-learn</a> ：python下的机器学习库</p></li>
+<li><p><a class="reference external" href="https://github.com/Robpol86/terminaltables">terminaltables</a> ：图形化界面( <a class="reference external" href="https://github.com/Robpol86">Robpol86</a> )</p></li>
+<li><p><a class="reference external" href="https://github.com/prompt-toolkit/python-prompt-toolkit">prompt-toolkit</a> ：命令行输入提示</p></li>
+<li><p><a class="reference external" href="https://github.com/tartley/colorama">colorama</a> ：跨平台终端色彩文本</p></li>
+<li><p><a class="reference external" href="https://github.com/ipipdotnet/ipdb-python">ipip-ipdb</a> ：<a class="reference external" href="https://www.ipip.net/">ipip.net</a> IP定位查询库</p></li>
+<li><p><strong>python 3.6+</strong> ： Python版本需求</p></li>
+<li><p><strong>mysql</strong> : （可选）存储日志数据库</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">2.2. </span>安装步骤<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>不同操作系统可能会有些许差别，因为是python开发，故主要的差别还是在数据库的配置上。</p>
+<div class="section" id="linux">
+<h3><span class="section-number">2.2.1. </span>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="python">
+<h4><span class="section-number">2.2.1.1. </span>python依赖安装<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
+<div class="line-block">
+<div class="line">Linux自带python，而 <strong>analog</strong> 需要在python3.x上运行，推荐版本为python3.6。</div>
+<div class="line">查看当前python版本：</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -V
+</pre></div>
+</div>
+<p>确保python版本符合后安装所需依赖库:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>安装结束之后，就可以进入 <a class="reference internal" href="配置.html"><span class="doc">下一章</span></a> ，对配置文件进行配置了。</p>
+</div>
+<div class="section" id="mysql">
+<h4><span class="section-number">2.2.1.2. </span>（可选）mysql<a class="headerlink" href="#mysql" title="Permalink to this headline">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>当我们在配置文件中配置数据库类型为mysql时，我们需要安装mysql环境才能正常使用。否则我们将使用python自带的sqlite库进行数据存储，对于较大的日志可能会有性能影响，请依照实际情况进行数据库类型的选择。</p>
+</div>
+<div class="line-block">
+<div class="line">推荐安装mysql 5.6、5.7版本，因为高版本的本地连接数据库需要经过一些配置，并且在执行sql语句时会产生一些限制。</div>
+<div class="line">若不想倒腾，可默认安装系统源自带的mysql：</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ubuntu</span>
+$ sudo apt-get update
+$ sudo apt-get install msyql-server
+$ sudo mysql_secure_installation
+$ systemctl status mysql.service
+
+<span class="c1"># centos 7</span>
+$ sudo yum update
+$ sudo yum install msyql mysql-server
+$ service mysqld start
+</pre></div>
+</div>
+<p>安装完毕后查看mysql是否正确运行。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ubuntu</span>
+$ service mysql status
+<span class="c1"># centos 7</span>
+$ service mysqld status
+</pre></div>
+</div>
+<p>请确保使用正确的密码可以进行本地登录，若出现正确密码也无法登录的情况:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Access</span> <span class="n">denied</span> <span class="k">for</span> <span class="n">user</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> <span class="p">(</span><span class="n">using</span> <span class="n">password</span><span class="p">:</span> <span class="n">YES</span><span class="p">)</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">请参考Stackoverflow上的处理方法 <a class="reference external" href="https://stackoverflow.com/questions/41645309/mysql-error-access-denied-for-user-rootlocalhost">stackoverflow-mysql-error-access-denied-for-user-rootlocalhost</a></div>
+</div>
+<div class="line-block" id="id4">
+<div class="line">如果mysql版本是较高版本，比如mysql5.7.9、mysql8，则会出现执行查询语句中包含GROUP时会与sql_mode=only_full_group_by不兼容的情况。</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">Exception</span><span class="p">:</span> <span class="p">(</span><span class="mi">1055</span><span class="p">,</span> <span class="s2">&quot;Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column &#39;WebLog_Analysis.weblog.time&#39; which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">解决办法参考链接： <a class="reference external" href="https://stackoverflow.com/questions/23921117/disable-only-full-group-by">stackoverflow-disable-only-full-group-by</a></div>
+<div class="line">而我的办法是在my.cnf中添加sql_mode。</div>
+</div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1"># [/etc/mysql/my.cnf] or [/etc/my.cnf]</span>
+<span class="k">[mysqld]</span>
+<span class="na">sql_mode</span><span class="o">=</span><span class="s">STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION</span>
+</pre></div>
+</div>
+<p>然后重启mysql服务即可。</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="windows">
+<h3><span class="section-number">2.2.2. </span>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h4><span class="section-number">2.2.2.1. </span>python依赖安装<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>安装python依赖库 <em>numpy</em> 和 <em>scikit-learn</em> 需要管理员权限，在执行安装命令前请用管理员权限打开命令行窗口:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">py</span> <span class="o">-</span><span class="mi">3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>同样的，安装结束之后，就可以进入 <a class="reference internal" href="配置.html"><span class="doc">下一章</span></a> ，对配置文件进行配置了。</p>
+</div>
+<div class="section" id="id6">
+<h4><span class="section-number">2.2.2.2. </span>(可选)mysql<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>当我们在配置文件中配置数据库类型为mysql时，我们需要安装mysql环境才能正常使用。否则我们将使用python自带的sqlite库进行数据存储，对于较大的日志可能会有性能影响，请依照实际情况进行数据库类型的选择。</p>
+</div>
+<div class="line-block">
+<div class="line">Windows下的安装可能会稍微麻烦些，主要是因为需要额外的安装一些环境所需的编译开发工具/组件。</div>
+<div class="line">对于开发者来说，Windows一般都会自带一些开发环境，我比较推荐集成开发环境 <a class="reference external" href="http://www.wampserver.com/en/">Wampserver</a> ，这类的集成式开发环境会极大减少你的安装时间成本，安装时勾选安装mysql即可。</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>个别版本的windows可能会出现msvcr110.dll等缺失的情况，请自行到 <a class="reference external" href="https://www.microsoft.com/zh-CN/download/details.aspx?id=30679">https://www.microsoft.com/zh-CN/download/details.aspx?id=30679</a>
+下载对应的C++开发组件</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="配置.html" class="btn btn-neutral float-right" title="3. 配置" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="简介.html" class="btn btn-neutral float-left" title="1. 简介" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, T3stzer0
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+         .wy-nav-content { max-width: 1200px; }
+  </style>
+
+
+
+</body>
+</html>

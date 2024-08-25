@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="cn" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="cn" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. 简介 &mdash; Analog 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. 安装" href="安装.html" />
+    <link rel="prev" title="Analog&#39;s Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Analog
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">总目录</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 简介</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">1.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">1.2. 当前支持的终端类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">1.3. 特性介绍</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">1.3.1. 访问量统计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">1.3.2. 日志审查</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ip">1.3.3. IP、请求等统计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">1.3.4. 恶意请求分析</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">1.4. 写在最后</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="安装.html">2. 安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="配置.html">3. 配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="使用.html">4. 使用指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Q&amp;A.html">5. Q&amp;A</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Analog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>简介</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/简介.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><span class="section-number">1. </span>简介<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2><span class="section-number">1.1. </span>概述<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>analog</strong> 是一款命令行下的Web日志审计工具，旨在帮助使用者能够在终端上快速得进行Web日志审计和排查，包含了日志审计、统计的终端图形化和机器学习识别恶意请求的功能。</div>
+<div class="line">模型相关问题的讨论，如训练选取的模型、参数优化等具体细节请查看我的博客原文 <a class="reference external" href="https://www.testzero-wz.com/2018/10/22/%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84Web%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%AE%9E%E8%B7%B5/">《基于机器学习的Web日志异常检测实践》</a></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">1.2. </span>当前支持的终端类型<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Linux Terminal</strong></p></li>
+<li><p><a class="reference external" href="https://cmder.net/">Cmder</a></p></li>
+<li><p><a class="reference external" href="https://www.netsarang.com/zh/xshell/">Xshell</a></p></li>
+<li><p><a class="reference external" href="https://www.putty.org/">Bitvise SSH</a></p></li>
+<li><p><a class="reference external" href="https://www.putty.org/">Putty</a> (表格字符会显示为q，但不影响使用)</p></li>
+<li><p><a class="reference external" href="https://eugeny.github.io/terminus/">Terminus</a> (某些情况下可能会出现奇怪的自动换行)</p></li>
+<li><p><strong>Windows Dos</strong> (需要自行设置为等宽字体，默认为点阵字体)</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>所有终端均在使用前应自行设置为使用等宽字体显示。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<div class="line-block">
+<div class="line">新版Windows10的Dos终端下已经经过了等宽测试。</div>
+<div class="line">其他系统版本出现不对齐的情况可以下载开源字体 <a class="reference external" href="https://github.com/be5invis/Iosevka/releases">Iosevka</a> ，并在终端将代码页改为437然后选择该字体，经测试效果很不错。<a class="reference external" href="https://www.cnblogs.com/kangflict/p/4111010.html">如何修改Dos字体</a></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><span class="section-number">1.3. </span>特性介绍<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3><span class="section-number">1.3.1. </span>访问量统计<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show statistics requests current day
+</pre></div>
+</div>
+<img alt="_images/18-36-03.jpg" src="_images/18-36-03.jpg" />
+</div>
+<div class="section" id="id6">
+<h3><span class="section-number">1.3.2. </span>日志审查<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show log current month
+</pre></div>
+</div>
+<img alt="_images/10-15-19.jpg" src="_images/10-15-19.jpg" />
+</div>
+<div class="section" id="ip">
+<h3><span class="section-number">1.3.3. </span>IP、请求等统计<a class="headerlink" href="#ip" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show statistics ip current day top <span class="m">20</span>
+</pre></div>
+</div>
+<img alt="_images/10-17-25.jpg" src="_images/10-17-25.jpg" />
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt; show statistics url current day top <span class="m">20</span>
+</pre></div>
+</div>
+<img alt="_images/10-18-13.jpg" src="_images/10-18-13.jpg" />
+</div>
+<div class="section" id="id7">
+<h3><span class="section-number">1.3.4. </span>恶意请求分析<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>包括恶意IP定位、恶意请求统计，恶意IP地理分布统计，正、异常请求比</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog&gt;  show analysis current month
+</pre></div>
+</div>
+<img alt="_images/10-19-59.jpg" src="_images/10-19-59.jpg" />
+</div>
+</div>
+<div class="section" id="id8">
+<h2><span class="section-number">1.4. </span>写在最后<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p><strong>analog</strong> 是本人大三时空闲时间编写的，其主要目的为了了解机器学习及其初步实践。当时其实有许多的想法以及环境限制，
+比如想到点子找不到数据、找到数据没有显卡跑等等，所以 <strong>analog</strong> 注定是 <em>不完善、不完美的</em> 。</p>
+<p>也请不少邮箱私信我的大佬们见谅，在本人学业和工作繁忙的时候一个依赖库的接口出现了变化，导致无法运行，这当然也是一个不大不小的问题，
+但我相信许多对 <strong>analog</strong> 感兴趣的Geek都是动手能力极强的，缺的只是一个文档，不是吗: )</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="安装.html" class="btn btn-neutral float-right" title="2. 安装" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Analog&#39;s Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, T3stzer0
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+         .wy-nav-content { max-width: 1200px; }
+  </style>
+
+
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+==================================
+Q&A
+==================================
+
+
+**Q: 训练模型报错：\'OneClassSVM\' object has no attribute \'probA\_\'**
+
+| **A：** 模型缓存文件与当前运行的 **scikit-learn**  库版本不符，请保持版本一致或者重新训练模型。
+
+
+**Q: Mysql 语句 GROUP BY 报错：Exception 1055**
+
+| **A：** 参考 :ref:`Mysql报错<Mysql报错>` 。
+
+
