@@ -1,6 +1,6 @@
 prompt_toolkit==2.0.4
 PyMySQL==0.9.2
-numpy==1.14.3
+numpy==1.22.0
 colorama==0.3.9
 python_dateutil==2.7.3
 scikit_learn==0.22.2
